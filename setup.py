@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name="Grank",
-    version="0.0.3",
+    version="0.0.4",
     py_modules=['grank'],
     install_requires= [
         'click',
