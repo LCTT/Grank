@@ -160,13 +160,15 @@ def analyse_user(user,config):
     result = helpers.query(all_query,config)
     if (helpers.has_result(result,'user_repository')):
             for repo in result["data"]["user"]["repositories"]["nodes"]:
-                repositoryArray.append({"owner":user,"repository":repo["name"]})
+                if repo['stargazers']["totalCount"] > 100:
+                    repositoryArray.append({"owner":user,"repository":repo["name"]})
 
     while(helpers.has_next_page(result,'user_repository')):
         click.echo("继续抓取组织数据: %s" % organization)
         if (helpers.has_result(result,'user_repository')):
             for repo in result["data"]["user"]["repositories"]["nodes"]:
-                repositoryArray.append({"owner":user,"repository":repo["name"]})
+                if repo['stargazers']["totalCount"] > 100:
+                    repositoryArray.append({"owner":user,"repository":repo["name"]})
 
         click.echo("继续抓取用户数据:%s" % user)
         next_query = query.organ_all_query_with_pager % (organization,helpers.get_page_cursor(result,"user_repository"))
