@@ -10,6 +10,16 @@ def analyse_repo(owner,repository,config):
     commitArray = []
     pullRequestArray = []
 
+    # 添加一个可过滤掉的数据，确保后续执行完成
+    commitArray.append({
+            'author' : 'localhost',
+            'date': '未标注时间',
+            "times":1
+        })
+    pullRequestArray.append({
+            'date': '未标注时间',
+            "times":1
+        })
     # 定义查询变量
     start_time=config["time"]["start_time"]
     end_time=config["time"]["end_time"]
@@ -61,30 +71,33 @@ def analyse_repo(owner,repository,config):
     print("分析 commit")
 
     commit_frame = pd.DataFrame(commitArray);
-    if not commit_frame.empty:
-        # commit_frame.to_pickle("output/commits.pkl")
-        commit_frame = commit_frame[commit_frame.date != "未标注时间"]
-        commit_frame["date"] = pd.to_datetime(commit_frame['date'])
-        commit_dstList = commit_frame.set_index('date').resample('W')['times'].sum()
-        commit_dstList = commit_dstList.loc[start_time:end_time]
+
+    # commit_frame.to_pickle("output/commits.pkl")
+    commit_frame = commit_frame[commit_frame.date != "未标注时间"]
+    commit_frame["date"] = pd.to_datetime(commit_frame['date'])
+    commit_dstList = commit_frame.set_index('date').resample('W')['times'].sum()
+    commit_dstList = commit_dstList.loc[start_time:end_time]
 
     print("分析 Contributor")
     contributor_frame = pd.DataFrame(commitArray);
-    if not contributor_frame.empty:
-        contributor_frame = contributor_frame[contributor_frame.date != "未标注时间"]
-        contributor_frame["date"] = pd.to_datetime(contributor_frame['date'])
-        contributor_dstList = contributor_frame.drop_duplicates(subset=["author"]).set_index('date').resample('W')['times'].sum()
-        contributor_dstList = contributor_dstList.loc[start_time:end_time]
+
+    contributor_frame = contributor_frame[contributor_frame.date != "未标注时间"]
+    contributor_frame["date"] = pd.to_datetime(contributor_frame['date'])
+    contributor_dstList = contributor_frame.drop_duplicates(subset=["author"]).set_index('date').resample('W')['times'].sum()
+    contributor_dstList = contributor_dstList.loc[start_time:end_time]
+
 
     new_commit_series = pd.Series(np.zeros((len(date_range),), dtype=int),index=date_range)
     for item in commit_dstList.index:
         if item in date_series.index:
             new_commit_series[item] = commit_dstList[item]
 
+
     new_pr_series = pd.Series(np.zeros((len(date_range),), dtype=int),index=date_range)
     for item in pr_dstList.index:
         if item in date_series.index:
             new_pr_series[item] = pr_dstList[item]
+
 
     new_contributor_series = pd.Series(np.zeros((len(date_range),), dtype=int),index=date_range)
     for item in contributor_dstList.index:

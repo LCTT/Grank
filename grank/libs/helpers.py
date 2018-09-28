@@ -5,7 +5,9 @@ import datetime
 import click
 import pandas as pd
 import matplotlib
+
 matplotlib.use('TkAgg')
+import matplotlib.pyplot as plt
 
 def query(query,config):
     """封装后的 GraphQL 请求"""
@@ -181,7 +183,10 @@ def generate_line_number(start_time,end_time,top_number):
             all_df[row["name"]] = pd.read_pickle("output/%s.pkl" % row["name"])["score"]
         else:
             break
-    all_df.plot().get_figure().savefig("result/line.png")
+
+    fig = all_df.plot().get_figure()
+    fig.savefig("result/line.png")
+    plt.close(fig)
 
 def is_login():
     if not 'login' in configInstance.sections():
