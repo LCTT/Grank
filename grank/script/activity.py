@@ -62,7 +62,7 @@ def analyse_repo(owner,repository,config):
 
         result = helpers.query(next_query,config)
 
-    print("分析 PR")
+    click.echo("分析 PR")
     pr_frame = pd.DataFrame(pullRequestArray);
     if not pr_frame.empty:
         pr_frame = pr_frame[pr_frame.date != "未标注时间"]
@@ -70,19 +70,16 @@ def analyse_repo(owner,repository,config):
         pr_dstList = pr_frame.set_index('date').resample('W')['times'].sum()
         pr_dstList = pr_dstList.loc[start_time:end_time]
 
-    print("分析 commit")
+    click.echo("分析 commit")
 
     commit_frame = pd.DataFrame(commitArray);
-
-    # commit_frame.to_pickle("output/commits.pkl")
     commit_frame = commit_frame[commit_frame.date != "未标注时间"]
     commit_frame["date"] = pd.to_datetime(commit_frame['date'])
     commit_dstList = commit_frame.set_index('date').resample('W')['times'].sum()
     commit_dstList = commit_dstList.loc[start_time:end_time]
 
-    print("分析 Contributor")
+    click.echo("分析 Contributor")
     contributor_frame = pd.DataFrame(commitArray);
-
     contributor_frame = contributor_frame[contributor_frame.date != "未标注时间"]
     contributor_frame["date"] = pd.to_datetime(contributor_frame['date'])
     contributor_dstList = contributor_frame.drop_duplicates(subset=["author"]).set_index('date').resample('W')['times'].sum()
