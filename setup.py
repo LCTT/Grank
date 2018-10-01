@@ -1,9 +1,11 @@
-from setuptools import setup
+import setuptools
 
-setup(
+
+setuptools.setup(
     name="Grank",
-    version="0.0.5",
+    version="0.0.7",
     py_modules=['grank'],
+    packages=setuptools.find_packages(),
     install_requires= [
         'click',
         'requests',
@@ -14,5 +16,8 @@ setup(
     entry_points="""
         [console_scripts]
         grank=grank.core:main
-    """
+    """,
+    classifiers=[
+        "Programming Language :: Python :: 3",
+    ],
 )
