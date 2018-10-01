@@ -33,3 +33,22 @@ Grank -  Github 项目活跃度分析工具
 5. *grank repo* 分析特定项目，调用方法 *grank repo lctt grank*
 6. *grank user* 分析特定用户，调用方法 *grank user bestony*
 
+配置文件说明
+------------------
+
+ 
+::
+ 
+    [login]
+    token = xxx #personal access token 
+
+    [corp]
+    keyword = lctt # 用于判断社区化时使用的关键词，如果邮箱域内包含此关键词，视为企业开发着
+
+    [time]
+    start_time = 2017-01-01 # 分析的开始时间
+    end_time = 2018-10-01 # 分析的结束时间
+
+    [rank]
+    top = 3 # 绘图时绘制折线的项目数量
+
