@@ -8,7 +8,7 @@ if sys.version_info[0] != 3:
 
 from .libs import helpers
 from .libs import query
-from .script import activity
+from .script import activity,crawler
 
 @click.group()
 def main():
@@ -46,7 +46,10 @@ def checklogin():
 def organ(organization):
     """Analyse a Github Organization"""
     config = helpers.get_config()
-    activity.analyse_organ(organization,config)
+    repository_array = crawler.fetch_organ_data(organization,config)
+    for item in repository_array["repositoryArray"]:
+        data = crawler.fetch_repo_data(item["owner"],item["repository"],config)
+        activity.analyse_repo(item["owner"],item["repository"],data,config)
     pass
 
 @main.command()
@@ -55,7 +58,8 @@ def organ(organization):
 def repo(organization,repo):
     """Analyse a Github Repository"""
     config = helpers.get_config()
-    activity.analyse_repo(organization,repo,config)
+    data = crawler.fetch_repo_data(organization,repo,config)
+    activity.analyse_repo(organization,repo,data,config)
     pass
 
 @main.command()
@@ -63,7 +67,10 @@ def repo(organization,repo):
 def user(user):
     """Analyse a Github User"""
     config = helpers.get_config()
-    activity.analyse_user(user,config)
+    repository_array = crawler.fetch_user_data(user,config)
+    for item in repository_array["repositoryArray"]:
+        data = crawler.fetch_repo_data(item["owner"],item["repository"],config)
+        activity.analyse_repo(item["owner"],item["repository"],data,config)
     pass
 
 @main.command()
