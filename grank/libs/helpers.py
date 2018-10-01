@@ -3,6 +3,7 @@ import os
 import configparser
 import datetime
 import click
+import shutil
 import pandas as pd
 import matplotlib
 
@@ -188,9 +189,9 @@ def generate_line_number(start_time,end_time,top_number):
     fig.savefig("result/line.png")
     plt.close(fig)
 
-def is_login():
-    if not 'login' in configInstance.sections():
-        click.echo("You should login first")
-        return False
-    else:
-        return True
+def clean_directory():
+    """清空临时目录及结果目录"""
+    shutil.rmtree('output',ignore_errors=True)
+    shutil.rmtree('result',ignore_errors=True)
+    click.echo("Workspace is empty now!")
+    pass

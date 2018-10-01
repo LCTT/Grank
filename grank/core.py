@@ -66,5 +66,12 @@ def user(user):
     activity.analyse_user(user,config)
     pass
 
+@main.command()
+def clean():
+    """Delete UnUsed File"""
+    helpers.clean_directory()
+    pass
+
+
 if __name__ == '__main__':
     main()
