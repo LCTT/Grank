@@ -130,7 +130,7 @@ def analyse_repo(owner,repository,config):
 
     # 对平均分实例进行排序
 
-    helpers.set_avarage(instance,repository,target_score)
+    helpers.set_avarage(instance,owner,repository,target_score)
 
     # 输出项目的 CSV 数据
     helpers.export_csv(new_df,"%s" % repository)

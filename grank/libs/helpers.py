@@ -162,10 +162,10 @@ def get_avarage_instance():
         pd.DataFrame(data={'name': [], 'score': []}).to_pickle("output/average.pkl")
     return pd.read_pickle("output/average.pkl")
 
-def set_avarage(instance,repository,score):
+def set_avarage(instance,owner,repository,score):
     """保存中间值，并更新 csv 文件"""
-    instance = instance.append(pd.Series({"name":repository,"score":score}),ignore_index=True)
-    instance = instance.drop_duplicates(subset=["name"]).sort_values(["score"],ascending=False)
+    instance = instance.append(pd.Series({"owner":owner,"name":repository,"score":score}),ignore_index=True)
+    instance = instance.drop_duplicates(subset=["owner","name"]).sort_values(["score"],ascending=False)
     instance.to_pickle("output/average.pkl")
     instance.to_csv("result/project_rank.csv")
 
