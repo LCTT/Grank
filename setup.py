@@ -3,7 +3,7 @@ import setuptools
 
 setuptools.setup(
     name="Grank",
-    version="0.0.9",
+    version="0.0.10",
     py_modules=['grank'],
     packages=setuptools.find_packages(),
     install_requires= [
