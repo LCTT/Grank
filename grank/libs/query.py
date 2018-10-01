@@ -176,6 +176,9 @@ user_all_query="""
       }
       nodes{
         name,
+        owner {
+          login
+        }
         stargazers{
           totalCount
         },
@@ -195,6 +198,9 @@ user_all_query_with_pager="""
       }
       nodes{
         name,
+        owner {
+          login
+        }
         stargazers{
           totalCount
         },

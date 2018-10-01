@@ -173,9 +173,10 @@ def analyse_user(user,config):
     click.echo("开始抓取用户数据:%s" % user)
     all_query = query.user_all_query % user
     result = helpers.query(all_query,config)
+
     if (helpers.has_result(result,'user_repository')):
             for repo in result["data"]["user"]["repositories"]["nodes"]:
-                if repo['stargazers']["totalCount"] > 100:
+                if repo['stargazers']["totalCount"] > 100 and repo["owner"]["login"].lower() == user.lower():
                     repositoryArray.append({"owner":user,"repository":repo["name"]})
 
     while(helpers.has_next_page(result,'user_repository')):
