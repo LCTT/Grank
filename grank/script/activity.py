@@ -37,9 +37,11 @@ def analyse_repo(owner,repository,config):
         for commit in result["data"]["repository"]["ref"]["target"]["history"]["edges"]:
             helpers.add_item_to_commit_array(commit,commitArray)
             pass
+
     if (helpers.has_result(result,"pr")):
         for pullRequest in result["data"]["repository"]["pullRequests"]["nodes"]:
             helpers.add_item_to_pr_array(pullRequest,pullRequestArray)
+
 
     while helpers.has_next_page(result,"commit") or helpers.has_next_page(result,"issue") or helpers.has_next_page(result,"pr"):
         click.echo("继续抓取数据:%s/%s" % (owner,repository));
@@ -177,7 +179,7 @@ def analyse_user(user,config):
                     repositoryArray.append({"owner":user,"repository":repo["name"]})
 
     while(helpers.has_next_page(result,'user_repository')):
-        click.echo("继续抓取组织数据: %s" % organization)
+        click.echo("继续抓取用户数据: %s" % user)
         if (helpers.has_result(result,'user_repository')):
             for repo in result["data"]["user"]["repositories"]["nodes"]:
                 if repo['stargazers']["totalCount"] > 100:

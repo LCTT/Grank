@@ -62,8 +62,6 @@ def repo(organization,repo):
 @click.argument('user')
 def user(user):
     """Analyse a Github User"""
-    click.echo("暂未开放!")
-    exit()
     config = helpers.get_config()
     activity.analyse_user(user,config)
     pass
