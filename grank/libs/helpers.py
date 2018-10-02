@@ -157,13 +157,13 @@ def export_csv(series,name):
     """导出 Csv 文件"""
     series.to_csv("output/%s.csv" % name);
 
-def get_avarage_instance():
+def get_activity_avarage_instance():
     """获取平均值 DF 实例"""
     if not os.path.isfile("output/activity_average.pkl"):
         pd.DataFrame(data={'name': [], 'score': []}).to_pickle("output/activity_average.pkl")
     return pd.read_pickle("output/activity_average.pkl")
 
-def set_avarage(instance,owner,repository,score):
+def set_activity_avarage(instance,owner,repository,score):
     """保存中间值，并更新 csv 文件"""
     instance = instance.append(pd.Series({"owner":owner,"name":repository,"score":score}),ignore_index=True)
     instance = instance.drop_duplicates(subset=["owner","name"]).sort_values(["score"],ascending=False)
@@ -174,7 +174,7 @@ def series_to_pickle(df,name):
     """将数据保存到 pickle 中"""
     df.to_pickle("output/%s.pkl" % name)
 
-def generate_line_number(start_time,end_time,top_number):
+def generate_activity_line_number(start_time,end_time,top_number):
     """生成平均值的折线图"""
     df = pd.read_pickle("output/activity_average.pkl")
     all_df = pd.DataFrame(data=[],index=pd.date_range(start=start_time,end=end_time,freq="W"))

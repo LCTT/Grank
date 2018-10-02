@@ -74,7 +74,7 @@ def analyse_repo(owner,repository,data,config):
 
     # 获取平均分实例，用于后续排序
 
-    instance = helpers.get_avarage_instance()
+    instance = helpers.get_activity_avarage_instance()
 
      # 将项目的活跃分数保存到新的 Pickle 中，用于后续的折线图输出
 
@@ -82,13 +82,13 @@ def analyse_repo(owner,repository,data,config):
 
     # 对平均分实例进行排序
 
-    helpers.set_avarage(instance,owner,repository,target_score)
+    helpers.set_activity_avarage(instance,owner,repository,target_score)
 
     # 输出项目的 CSV 数据
     helpers.export_csv(new_df,"%s" % repository)
 
     # 生成折线图
 
-    helpers.generate_line_number(start_time,end_time,top_number)
+    helpers.generate_activity_line_number(start_time,end_time,top_number)
     click.echo("输出成功,%s 旗下的 %s 项目的活跃分数为 %.15f"% (owner,repository,target_score))
     click.echo("排行榜及折线图请查看 result 目录")
