@@ -7,6 +7,7 @@ import math
 
 
 def analyse_repo(owner, repository, data, config):
+    click.echo("========= Community start =========")
     click.echo("开始进行社区化分析：%s/%s" % (owner, repository))
     pullRequestArray = data["pullRequestArray"]
     commitArray = data["commitArray"]

@@ -7,6 +7,7 @@ import click
 
 
 def fetch_repo_data(owner, repository, config):
+    click.echo("========= Crawler start =========")
     # 定义空白数组
     commitArray = []
     pullRequestArray = []
@@ -62,7 +63,6 @@ def fetch_repo_data(owner, repository, config):
 
         result = helpers.query(next_query, config)
         fetch_count = fetch_count + 1
-
     return {
         "pullRequestArray": pullRequestArray,
         "commitArray": commitArray

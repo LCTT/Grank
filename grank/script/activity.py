@@ -7,6 +7,7 @@ import math
 
 def analyse_repo(owner, repository, data, config):
     """查询 Repo 数据"""
+    click.echo("========= Activity start =========")
     pullRequestArray = data["pullRequestArray"]
     commitArray = data["commitArray"]
 
@@ -25,7 +26,7 @@ def analyse_repo(owner, repository, data, config):
         pr_dstList = pr_frame.set_index('date').resample('W')['times'].sum()
         pr_dstList = pr_dstList.loc[start_time:end_time]
 
-    click.echo("分析 commit")
+    click.echo("分析 Commit")
 
     commit_frame = pd.DataFrame(commitArray)
     commit_frame = commit_frame[commit_frame.date != "未标注时间"]
@@ -98,3 +99,4 @@ def analyse_repo(owner, repository, data, config):
     click.echo("输出成功,%s 旗下的 %s 项目的活跃分数为 %.15f" %
                (owner, repository, target_score))
     click.echo("排行榜及折线图请查看 result 目录下的 activity_line.png 和 activity_rank.csv")
+
