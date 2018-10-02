@@ -1,5 +1,7 @@
 import click
 import sys
+import warnings
+warnings.filterwarnings('ignore')
 
 if sys.version_info[0] != 3:
     """设置 Python 3 的判断如果不是 Python 3 则退出"""
