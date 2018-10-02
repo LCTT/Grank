@@ -43,8 +43,8 @@ Grank -  Github 项目活跃度分析工具
     [login]
     token = xxx #personal access token
 
-    [corp]
-    keyword = lctt # 用于判断社区化时使用的关键词，如果邮箱域内包含此关键词，视为企业开发着
+    [social]
+    rule = corp|inc # 进行社区化分析时的正则表达式规则
 
     [time]
     start_time = 2017-01-01 # 分析的开始时间

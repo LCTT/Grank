@@ -20,10 +20,10 @@ def main():
 
 
 @main.command()
-@click.option('--keyword', prompt=True, help="The Corp Keyword")
-def config(keyword):
+@click.option('--rule', prompt=True, help="Regex Rule")
+def config(rule):
     """ Config Grank"""
-    helpers.set_keyword(keyword)
+    helpers.set_keyword(rule)
     click.echo('Update Grank.ini Success!')
     pass
 

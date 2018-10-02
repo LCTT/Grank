@@ -3,6 +3,7 @@ import os
 import configparser
 import datetime
 import click
+import re
 import shutil
 import pandas as pd
 import matplotlib
@@ -46,8 +47,8 @@ def get_config():
         configInstance = configparser.ConfigParser()
         configInstance["login"] = {}
         configInstance["login"]["token"] = ''
-        configInstance["corp"] = {}
-        configInstance["corp"]["keyword"] = ''
+        configInstance["social"] = {}
+        configInstance["social"]["rule"] = 'corp|inc'
         configInstance["time"] = {}
         configInstance["time"]["start_time"] = '2017-01-01'
         configInstance["time"]["end_time"] = datetime.date.today().strftime(
@@ -69,10 +70,10 @@ def set_user_token(token):
         config.write(configfile)
 
 
-def set_keyword(keyword):
+def set_keyword(rule):
     """向配置文件写入关键词"""
     config = get_config()
-    config["corp"]["keyword"] = keyword
+    config["social"]["rule"] = rule
     with open('grank.ini', 'w') as configfile:
         config.write(configfile)
 
@@ -261,7 +262,7 @@ def clean_directory():
 
 def is_corp(email, config):
     """判断是否是企业用户"""
-    if config["corp"]["keyword"] in email:
+    if re.search(config["social"]["rule"],email) :
         return True
     else:
         return False
