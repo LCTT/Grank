@@ -159,16 +159,16 @@ def export_csv(series,name):
 
 def get_avarage_instance():
     """获取平均值 DF 实例"""
-    if not os.path.isfile("output/average.pkl"):
-        pd.DataFrame(data={'name': [], 'score': []}).to_pickle("output/average.pkl")
-    return pd.read_pickle("output/average.pkl")
+    if not os.path.isfile("output/activity_average.pkl"):
+        pd.DataFrame(data={'name': [], 'score': []}).to_pickle("output/activity_average.pkl")
+    return pd.read_pickle("output/activity_average.pkl")
 
 def set_avarage(instance,owner,repository,score):
     """保存中间值，并更新 csv 文件"""
     instance = instance.append(pd.Series({"owner":owner,"name":repository,"score":score}),ignore_index=True)
     instance = instance.drop_duplicates(subset=["owner","name"]).sort_values(["score"],ascending=False)
-    instance.to_pickle("output/average.pkl")
-    instance.to_csv("result/project_rank.csv")
+    instance.to_pickle("output/activity_average.pkl")
+    instance.to_csv("result/activity_rank.csv")
 
 def series_to_pickle(df,name):
     """将数据保存到 pickle 中"""
@@ -176,7 +176,7 @@ def series_to_pickle(df,name):
 
 def generate_line_number(start_time,end_time,top_number):
     """生成平均值的折线图"""
-    df = pd.read_pickle("output/average.pkl")
+    df = pd.read_pickle("output/activity_average.pkl")
     all_df = pd.DataFrame(data=[],index=pd.date_range(start=start_time,end=end_time,freq="W"))
 
     for index, row in df.iterrows():
@@ -186,7 +186,7 @@ def generate_line_number(start_time,end_time,top_number):
             break
 
     fig = all_df.plot().get_figure()
-    fig.savefig("result/line.png")
+    fig.savefig("result/activity_line.png")
     plt.close(fig)
 
 def clean_directory():
