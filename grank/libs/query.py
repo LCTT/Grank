@@ -1,4 +1,4 @@
-login_query="""{
+login_query = """{
   viewer{
     login
   }
@@ -81,7 +81,7 @@ all_query_with_pager = """
 }
 """
 
-pr_query_with_pager ="""
+pr_query_with_pager = """
 {
   repository(owner: "%s", name: "%s") {
     name
@@ -128,7 +128,7 @@ commit_query_with_pager = """
 }
 """
 
-organ_all_query="""
+organ_all_query = """
 {
   organization(login:"%s"){
     repositories(first:100,orderBy:{field:STARGAZERS,direction:DESC}){
@@ -147,7 +147,7 @@ organ_all_query="""
 }
 """
 
-organ_all_query_with_pager="""
+organ_all_query_with_pager = """
 {
   organization(login:"%s"){
     repositories(first:100,after:"%s",orderBy:{field:STARGAZERS,direction:DESC}){
@@ -166,7 +166,7 @@ organ_all_query_with_pager="""
 }
 """
 
-user_all_query="""
+user_all_query = """
 {
   user(login:"%s"){
     repositories(first:100,orderBy:{field:STARGAZERS,direction:DESC}){
@@ -188,7 +188,7 @@ user_all_query="""
 }
 """
 
-user_all_query_with_pager="""
+user_all_query_with_pager = """
 {
   organization(login:"%s"){
     repositories(first:100,after:"%s",orderBy:{field:STARGAZERS,direction:DESC}){

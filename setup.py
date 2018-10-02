@@ -16,7 +16,7 @@ setuptools.setup(
     license="GPLv3",
     py_modules=['grank'],
     packages=setuptools.find_packages(),
-    install_requires= [
+    install_requires=[
         'click',
         'requests',
         'pandas',
