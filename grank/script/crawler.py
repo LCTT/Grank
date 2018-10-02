@@ -25,7 +25,7 @@ def fetch_repo_data(owner, repository, config):
     start_time = config["time"]["start_time"]
     end_time = config["time"]["end_time"]
     top_number = int(config["rank"]["top"])
-    click.echo("初次抓取数据:%s/%s" % (owner, repository))
+    click.echo("第 1 次抓取数据:%s/%s" % (owner, repository))
     # 进行初次查询
     all_query = query.all_query % (owner, repository)
     result = helpers.query(all_query, config)
@@ -39,9 +39,9 @@ def fetch_repo_data(owner, repository, config):
     if (helpers.has_result(result, "pr")):
         for pullRequest in result["data"]["repository"]["pullRequests"]["nodes"]:
             helpers.add_item_to_pr_array(pullRequest, pullRequestArray)
-
+    fetch_count = 2
     while helpers.has_next_page(result, "commit") or helpers.has_next_page(result, "issue") or helpers.has_next_page(result, "pr"):
-        click.echo("继续抓取数据:%s/%s" % (owner, repository))
+        click.echo("第 %d 次抓取数据:%s/%s" % (fetch_count,owner, repository))
         if (helpers.has_result(result, "commit")):
             for commit in result["data"]["repository"]["ref"]["target"]["history"]["edges"]:
                 helpers.add_item_to_commit_array(commit, commitArray)
@@ -61,6 +61,7 @@ def fetch_repo_data(owner, repository, config):
                 owner, repository, helpers.get_page_cursor(result, "commit"))
 
         result = helpers.query(next_query, config)
+        fetch_count = fetch_count + 1
 
     return {
         "pullRequestArray": pullRequestArray,
