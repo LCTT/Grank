@@ -8,7 +8,7 @@ if sys.version_info[0] != 3:
 
 from .libs import helpers
 from .libs import query
-from .script import activity,crawler
+from .script import activity,crawler,social
 
 @click.group()
 def main():
@@ -60,6 +60,7 @@ def repo(organization,repo):
     config = helpers.get_config()
     data = crawler.fetch_repo_data(organization,repo,config)
     activity.analyse_repo(organization,repo,data,config)
+    social.analyse_repo(organization,repo,data,config)
     pass
 
 @main.command()
@@ -78,7 +79,6 @@ def clean():
     """Delete UnUsed File"""
     helpers.clean_directory()
     pass
-
 
 if __name__ == '__main__':
     main()

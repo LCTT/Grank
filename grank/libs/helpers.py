@@ -157,18 +157,33 @@ def export_csv(series,name):
     """导出 Csv 文件"""
     series.to_csv("output/%s.csv" % name);
 
-def get_activity_avarage_instance():
+def get_activity_average_instance():
     """获取平均值 DF 实例"""
     if not os.path.isfile("output/activity_average.pkl"):
         pd.DataFrame(data={'name': [], 'score': []}).to_pickle("output/activity_average.pkl")
     return pd.read_pickle("output/activity_average.pkl")
 
-def set_activity_avarage(instance,owner,repository,score):
+def get_social_average_instance():
+    """获取活跃度平均值 DF 实例"""
+    if not os.path.isfile("output/social_average.pkl"):
+        pd.DataFrame(data={'name': [], 'score': []}).to_pickle("output/social_average.pkl")
+    return pd.read_pickle("output/social_average.pkl")
+
+def set_activity_average(instance,owner,repository,score):
     """保存中间值，并更新 csv 文件"""
     instance = instance.append(pd.Series({"owner":owner,"name":repository,"score":score}),ignore_index=True)
     instance = instance.drop_duplicates(subset=["owner","name"]).sort_values(["score"],ascending=False)
     instance.to_pickle("output/activity_average.pkl")
     instance.to_csv("result/activity_rank.csv")
+
+def set_social_average(instance,owner,repository,score):
+    """保存中间值，并更新 csv 文件"""
+
+    instance = instance.append(pd.Series({"owner":owner,"name":repository,"score":score}),ignore_index=True)
+    instance = instance.drop_duplicates(subset=["owner","name"]).sort_values(["score"],ascending=False)
+
+    instance.to_pickle("output/social_average.pkl")
+    instance.to_csv("result/social_rank.csv")
 
 def series_to_pickle(df,name):
     """将数据保存到 pickle 中"""
@@ -189,9 +204,31 @@ def generate_activity_line_number(start_time,end_time,top_number):
     fig.savefig("result/activity_line.png")
     plt.close(fig)
 
+def generate_social_line_number(start_time,end_time,top_number):
+    """生成平均值的折线图"""
+    df = pd.read_pickle("output/social_average.pkl")
+    all_df = pd.DataFrame(data=[],index=pd.date_range(start=start_time,end=end_time,freq="W"))
+
+    for index, row in df.iterrows():
+        if len(all_df.columns) < top_number:
+            all_df[row["name"]] = pd.read_pickle("output/social_%s.pkl" % row["name"])["score"]
+        else:
+            break
+
+    fig = all_df.plot().get_figure()
+    fig.savefig("result/social_line.png")
+    plt.close(fig)
+
 def clean_directory():
     """清空临时目录及结果目录"""
     shutil.rmtree('output',ignore_errors=True)
     shutil.rmtree('result',ignore_errors=True)
     click.echo("Workspace is empty now!")
     pass
+
+def is_corp(email,config):
+    """判断是否是企业用户"""
+    if config["corp"]["keyword"] in email:
+        return True
+    else:
+        return False

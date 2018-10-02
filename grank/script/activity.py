@@ -73,7 +73,7 @@ def analyse_repo(owner,repository,data,config):
 
     # 获取平均分实例，用于后续排序
 
-    instance = helpers.get_activity_avarage_instance()
+    instance = helpers.get_activity_average_instance()
 
      # 将项目的活跃分数保存到新的 Pickle 中，用于后续的折线图输出
 
@@ -81,7 +81,7 @@ def analyse_repo(owner,repository,data,config):
 
     # 对平均分实例进行排序
 
-    helpers.set_activity_avarage(instance,owner,repository,target_score)
+    helpers.set_activity_average(instance,owner,repository,target_score)
 
     # 输出项目的 CSV 数据
     helpers.export_csv(new_df,"%s" % repository)
