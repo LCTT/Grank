@@ -5,7 +5,7 @@ import numpy as np
 import click
 import math
 def analyse_repo(owner,repository,data,config):
-    click.echo("分析社区化")
+    click.echo("开始进行社区化分析：%s/%s" % (owner,repository))
     pullRequestArray = data["pullRequestArray"]
     commitArray = data["commitArray"]
 
@@ -57,6 +57,6 @@ def analyse_repo(owner,repository,data,config):
 
     helpers.generate_social_line_number(start_time,end_time,int(config["rank"]["top"]))
 
-    print(target_social_score)
-    exit()
+    click.echo("输出成功 %s/%s 的社区化分数为 %.15f" % (owner,repository,target_social_score))
+    click.echo("排行榜及折线图请查看 result 目录下的 social_line.png 和 social_rank.csv")
     pass
