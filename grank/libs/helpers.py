@@ -196,7 +196,7 @@ def set_activity_average(instance, owner, repository, score):
     instance = instance.drop_duplicates(
         subset=["owner", "name"]).sort_values(["score"], ascending=False)
     instance.to_pickle("output/activity_average.pkl")
-    instance.to_csv("result/activity_rank.csv")
+    instance.to_csv("result/activity_rank.csv",float_format="%.2f")
 
 
 def set_social_average(instance, owner, repository, score):
@@ -208,7 +208,7 @@ def set_social_average(instance, owner, repository, score):
         subset=["owner", "name"]).sort_values(["score"], ascending=False)
 
     instance.to_pickle("output/social_average.pkl")
-    instance.to_csv("result/social_rank.csv")
+    instance.to_csv("result/social_rank.csv",float_format="%.2f")
 
 
 def series_to_pickle(df, name):

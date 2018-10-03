@@ -96,7 +96,7 @@ def analyse_repo(owner, repository, data, config):
     # 生成折线图
 
     helpers.generate_activity_line_number(start_time, end_time, top_number)
-    click.echo("输出成功,%s 旗下的 %s 项目的活跃分数为 %.15f" %
+    click.echo("输出成功,%s 旗下的 %s 项目的活跃分数为 %.2f" %
                (owner, repository, target_score))
     click.echo("排行榜及折线图请查看 result 目录下的 activity_line.png 和 activity_rank.csv")
 
