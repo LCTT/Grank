@@ -4,7 +4,6 @@ import configparser
 import datetime
 import click
 import re
-import shutil
 import pandas as pd
 import matplotlib
 
@@ -251,12 +250,31 @@ def generate_social_line_number(start_time, end_time, top_number):
     fig.savefig("result/social_line.png")
     plt.close(fig)
 
-
 def clean_directory():
     """清空临时目录及结果目录"""
-    shutil.rmtree('output', ignore_errors=True)
-    shutil.rmtree('result', ignore_errors=True)
-    click.echo("Workspace is empty now!")
+    dirs = ['result','output']
+    delete = []
+    feature = ['.png','.csv','.pkl']
+    exist = False
+    for dir in dirs:
+        if not os.path.exists(dir):
+            continue
+        for file in os.listdir(dir):
+            if os.path.splitext(file)[1] in feature:
+                delete.append(dir + '/' + file)
+                click.echo(dir+'/'+file)
+                exist = True
+    if not exist:
+    	click.echo("Workspace is empty now!")
+    else: 
+        confirm = input("\ndelete these files?(yes/no)\n")
+        if confirm in ['yes','y','Yes','Y'] :
+            for file in delete:
+                os.remove(file)
+            for dir in dirs:
+                if not os.listdir(dir):
+                    os.rmdir(dir)
+            click.echo("done!")
     pass
 
 
