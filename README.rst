@@ -2,6 +2,28 @@
 Grank -  Github 项目活跃度分析工具
 ============
 
+
+.. image:: https://img.shields.io/pypi/pyversions/grank.svg?style=for-the-badge   :alt: PyPI - Python Version   :target: https://pypi.org/project/Grank/
+
+
+.. image:: https://img.shields.io/pypi/v/grank.svg?style=for-the-badge   :alt: PyPI   :target: https://pypi.org/project/Grank/
+
+.. image:: https://img.shields.io/github/tag/lctt/grank.svg?style=for-the-badge   :alt: GitHub tag   :target: https://github.com/LCTT/Grank
+
+.. image:: https://img.shields.io/pypi/format/grank.svg?style=for-the-badge   :alt: PyPI - Format   :target: https://pypi.org/project/Grank/
+
+
+.. image:: https://img.shields.io/pypi/implementation/grank.svg?style=for-the-badge   :alt: PyPI - Implementation   :target: https://pypi.org/project/Grank/
+
+.. image:: https://img.shields.io/pypi/l/grank.svg?style=for-the-badge   :alt: PyPI - License   :target: https://pypi.org/project/Grank/
+
+
+
+.. image:: https://img.shields.io/github/issues-raw/lctt/grank.svg?style=for-the-badge   :alt: GitHub issues   :target: https://github.com/LCTT/Grank/issues
+
+.. image:: https://img.shields.io/github/contributors/lctt/grank.svg?style=for-the-badge   :alt: GitHub contributors   :target: https://github.com/lctt/grank/
+
+
 特性
 ------------------
 - 读取 Commit 信息分析
