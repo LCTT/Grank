@@ -1,5 +1,9 @@
 # 变更日志
 
+## 0.0.16
+
+1. 解决了 issue #5 中 clean 的优化问题。 Contributor： @LuuMing
+
 ## 0.0.15
 
 1. 解决 issue #9 中小数点输出的问题。
