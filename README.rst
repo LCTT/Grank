@@ -55,6 +55,7 @@ Grank -  Github 项目活跃度分析工具
 5. *grank repo* 分析特定项目，调用方法 *grank repo lctt grank*
 6. *grank user* 分析特定用户，调用方法 *grank user bestony*
 7. *grank clean* 清空当前目录下的临时文件和结果，调用方法 *grank clean*
+8. *grank analy* 分析组织名下或用户名下的项目，调用方法 *grank analy lctt* / *grank analy bestony*
 
 配置文件说明
 ------------------

@@ -84,6 +84,15 @@ def user(user):
         activity.analyse_repo(item["owner"], item["repository"], data, config)
     pass
 
+@main.command()
+@click.pass_context
+@click.argument('name')
+def analy(ctx,name):
+    """Analyse a Github User or Organization"""
+    if helpers.get_user_type(name) is True:
+        ctx.invoke(user,user = name)
+    else:
+        ctx.invoke(organ,organization = name)
 
 @main.command()
 def clean():
