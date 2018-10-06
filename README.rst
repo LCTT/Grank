@@ -51,11 +51,9 @@ Grank -  Github 项目活跃度分析工具
 1. *grank checklogin* 显示当前 Token 的登录用户
 2. *grank login* 设置用户 Token
 3. *grank config* 设置关键词，用于社区化分析
-4. *grank organ* 分析组织名下的项目，调用方法 *grank organ lctt*
+4. *grank analy* 分析组织名下或用户名下的项目，调用方法 *grank analy lctt* / *grank analy bestony*
 5. *grank repo* 分析特定项目，调用方法 *grank repo lctt grank*
-6. *grank user* 分析特定用户，调用方法 *grank user bestony*
-7. *grank clean* 清空当前目录下的临时文件和结果，调用方法 *grank clean*
-8. *grank analy* 分析组织名下或用户名下的项目，调用方法 *grank analy lctt* / *grank analy bestony*
+6. *grank clean* 清空当前目录下的临时文件和结果，调用方法 *grank clean*
 
 配置文件说明
 ------------------
