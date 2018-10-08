@@ -72,6 +72,8 @@ def analy(name):
         data = crawler.fetch_repo_data(
             item["owner"], item["repository"], config)
         activity.analyse_repo(item["owner"], item["repository"], data, config)
+        social.analyse_email(data,config)
+        social.analyse_repo(item["owner"], item["repository"], data, config)
     pass
 
 @main.command()
