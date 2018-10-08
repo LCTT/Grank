@@ -127,7 +127,7 @@ def get_page_cursor(result, mode):
         return result["data"]["organization"]["repositories"]["pageInfo"]["endCursor"]
 
     if mode == "user_repository":
-        return result["data"]["organization"]["repositories"]["pageInfo"]["endCursor"]
+        return result["data"]["user"]["repositories"]["pageInfo"]["endCursor"]
 
 
 def has_result(result, mode):
@@ -266,7 +266,7 @@ def clean_directory():
                 exist = True
     if not exist:
     	click.echo("Workspace is empty now!")
-    else: 
+    else:
         confirm = input("\ndelete these files?(yes/no)\n")
         if confirm in ['yes','y','Yes','Y'] :
             for file in delete:

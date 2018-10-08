@@ -190,7 +190,7 @@ user_all_query = """
 
 user_all_query_with_pager = """
 {
-  organization(login:"%s"){
+  user(login:"%s"){
     repositories(first:100,after:"%s",orderBy:{field:STARGAZERS,direction:DESC}){
       pageInfo{
         hasNextPage

@@ -90,9 +90,10 @@ def fetch_user_data(user, config):
                         {"owner": user, "repository": repo["name"]})
 
         click.echo("继续抓取用户数据:%s" % user)
-        next_query = query.organ_all_query_with_pager % (
-            organization, helpers.get_page_cursor(result, "user_repository"))
+        next_query = query.user_all_query_with_pager % (
+            user, helpers.get_page_cursor(result, "user_repository"))
         result = helpers.query(next_query, config)
+
 
     return {
         "repositoryArray": repositoryArray
