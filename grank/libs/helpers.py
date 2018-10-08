@@ -284,3 +284,8 @@ def is_corp(email, config):
         return True
     else:
         return False
+
+def get_user_type(name):
+    """判断用户或组织"""
+    r = requests.get("https://api.github.com/users/"+name)
+    return r.json()["type"] == "User"

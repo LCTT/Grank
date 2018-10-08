@@ -49,19 +49,6 @@ def checklogin():
 
 @main.command()
 @click.argument('organization')
-def organ(organization):
-    """Analyse a Github Organization"""
-    config = helpers.get_config()
-    repository_array = crawler.fetch_organ_data(organization, config)
-    for item in repository_array["repositoryArray"]:
-        data = crawler.fetch_repo_data(
-            item["owner"], item["repository"], config)
-        activity.analyse_repo(item["owner"], item["repository"], data, config)
-    pass
-
-
-@main.command()
-@click.argument('organization')
 @click.argument('repo')
 def repo(organization, repo):
     """Analyse a Github Repository"""
@@ -71,19 +58,20 @@ def repo(organization, repo):
     social.analyse_repo(organization, repo, data, config)
     pass
 
-
 @main.command()
-@click.argument('user')
-def user(user):
-    """Analyse a Github User"""
+@click.argument('name')
+def analy(name):
+    """Analyse a Github User or Organization"""
     config = helpers.get_config()
-    repository_array = crawler.fetch_user_data(user, config)
+    if helpers.get_user_type(name) is True:
+        repository_array = crawler.fetch_user_data(name, config)
+    else:
+        repository_array = crawler.fetch_organ_data(name, config)
     for item in repository_array["repositoryArray"]:
         data = crawler.fetch_repo_data(
             item["owner"], item["repository"], config)
         activity.analyse_repo(item["owner"], item["repository"], data, config)
     pass
-
 
 @main.command()
 def clean():
