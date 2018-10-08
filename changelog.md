@@ -1,5 +1,9 @@
 # 变更日志
 
+## 0.0.18
+
+1.  **紧急修复** 三处 typo 导致的问题。 Co-Contributor:@LuuMing
+
 ## 0.0.17
 
 1. 合并 user 和 organ ,使用新的命令 。 Contributor: @LuuMing

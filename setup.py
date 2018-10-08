@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name="Grank",
-    version="0.0.17",
+    version="0.0.18",
     author="Bestony@LCTT",
     author_email="xiqingongzi@gmail.com",
     description="A Github Project Rank Command Line Tool",
