@@ -17,7 +17,9 @@ def analyse_email(data,config):
             '@users.noreply.github.com','@live.com',
             '@126.com','@outlook.com',
             '@yahoo.com','',
-            '@aliyun.com','@yeah.net']
+            '@aliyun.com','@yeah.net',
+            '@yahoo.co.uk','@googlemail.com'
+            '@hotmail.com','@yandex.ru']
     df = pd.DataFrame(data["commitArray"])
 
     for index,row in df.iterrows():
