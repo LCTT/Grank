@@ -131,7 +131,7 @@ commit_query_with_pager = """
 organ_all_query = """
 {
   organization(login:"%s"){
-    repositories(first:100,orderBy:{field:STARGAZERS,direction:DESC}){
+    repositories(first:100,orderBy:{field:STARGAZERS,direction:DESC},isFork:false){
       pageInfo{
         hasNextPage
         endCursor
@@ -150,7 +150,7 @@ organ_all_query = """
 organ_all_query_with_pager = """
 {
   organization(login:"%s"){
-    repositories(first:100,after:"%s",orderBy:{field:STARGAZERS,direction:DESC}){
+    repositories(first:100,after:"%s",orderBy:{field:STARGAZERS,direction:DESC},isFork:false){
       pageInfo{
         hasNextPage
         endCursor
@@ -169,7 +169,7 @@ organ_all_query_with_pager = """
 user_all_query = """
 {
   user(login:"%s"){
-    repositories(first:100,orderBy:{field:STARGAZERS,direction:DESC}){
+    repositories(first:100,orderBy:{field:STARGAZERS,direction:DESC},isFork:false){
       pageInfo{
         hasNextPage
         endCursor
@@ -191,7 +191,7 @@ user_all_query = """
 user_all_query_with_pager = """
 {
   user(login:"%s"){
-    repositories(first:100,after:"%s",orderBy:{field:STARGAZERS,direction:DESC}){
+    repositories(first:100,after:"%s",orderBy:{field:STARGAZERS,direction:DESC},isFork:false){
       pageInfo{
         hasNextPage
         endCursor
