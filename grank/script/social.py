@@ -28,8 +28,11 @@ def analyse_email(data,config):
     click.echo('')
 
     click.echo('当前的社区化企业判断规则为:'+config["social"]["rule"])
-    new_rule = click.prompt('请输入新的正则规则')
-    config["social"]["rule"] = new_rule
+    new_rule = click.prompt('请输入新的正则规则',default='')
+    if new_rule != '':
+        config["social"]["rule"] = new_rule
+    click.echo('规则设置完成！')
+    click.echo('')
 
     pass
 
