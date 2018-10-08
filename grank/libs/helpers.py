@@ -133,13 +133,13 @@ def get_page_cursor(result, mode):
 def has_result(result, mode):
     """判断是否有对应的结果"""
     if mode == "pr":
-        return ("pullRequests" in result["data"]["repository"])
+        return (("pullRequests" in result["data"]["repository"]) and (result["data"]["repository"]["pullRequests"] != None))
     elif mode == "commit":
-        return ("ref" in result["data"]["repository"])
+        return (("ref" in result["data"]["repository"]) and (result["data"]["repository"]["ref"] != None))
     elif mode == 'repository':
-        return ('repositories' in result["data"]["organization"])
+        return (('repositories' in result["data"]["organization"]) and (result["data"]["organization"]["repositories"] != None))
     elif mode == 'user_repository':
-        return ('repositories' in result["data"]["user"])
+        return (('repositories' in result["data"]["user"]) and (result["data"]["user"]["repositories"] != None))
 
 
 def cover_time(time):
