@@ -133,13 +133,38 @@ def get_page_cursor(result, mode):
 def has_result(result, mode):
     """判断是否有对应的结果"""
     if mode == "pr":
-        return (("pullRequests" in result["data"]["repository"]) and (result["data"]["repository"]["pullRequests"] != None))
+        if ("pullRequests" in result["data"]["repository"]):
+            if (result["data"]["repository"]["pullRequests"] != None):
+                return True
+            else:
+                return False
+        else:
+            return False
     elif mode == "commit":
-        return (("ref" in result["data"]["repository"]) and (result["data"]["repository"]["ref"] != None))
+        if ("ref" in result["data"]["repository"]):
+            if (result["data"]["repository"]["ref"] != None):
+                return True
+            else:
+                return False
+        else:
+            return False
+
     elif mode == 'repository':
-        return (('repositories' in result["data"]["organization"]) and (result["data"]["organization"]["repositories"] != None))
+        if ("repositories" in result["data"]["organization"]):
+            if (result["data"]["organization"]["repositories"] != None):
+                return True
+            else:
+                return False
+        else:
+            return False
     elif mode == 'user_repository':
-        return (('repositories' in result["data"]["user"]) and (result["data"]["user"]["repositories"] != None))
+        if ("repositories" in result["data"]["user"]):
+            if (result["data"]["user"]["repositories"] != None):
+                return True
+            else:
+                return False
+        else:
+            return False
 
 
 def cover_time(time):
