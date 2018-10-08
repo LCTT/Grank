@@ -289,3 +289,12 @@ def get_user_type(name):
     """判断用户或组织"""
     r = requests.get("https://api.github.com/users/"+name)
     return r.json()["type"] == "User"
+
+def detect_email_dmain(name):
+    rule = '@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?'
+    search_result= re.search(rule,name)
+
+    if search_result == None:
+        return ''
+    else:
+        return search_result.group(0)

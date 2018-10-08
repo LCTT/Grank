@@ -4,7 +4,34 @@ import pandas as pd
 import numpy as np
 import click
 import math
+import re
 
+def analyse_email(data,config):
+    click.echo("========= Email start =========")
+    # 邮箱匹配规则
+    regex_rule = re.compile('@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?')
+    # common mail
+    common_mail = [
+            '@gmail.com','@qq.com',
+            '@163.com','@foxmail.com',
+            '@users.noreply.github.com','@live.com',
+            '@126.com','@outlook.com',
+            '@yahoo.com','',
+            '@aliyun.com']
+    df = pd.DataFrame(data["commitArray"])
+
+    for index,row in df.iterrows():
+        df.loc[index,"author"] = helpers.detect_email_dmain(row["author"])
+
+    click.echo('')
+    click.echo(df['author'].value_counts().drop(labels=common_mail,errors='ignore'))
+    click.echo('')
+
+    click.echo('当前的社区化企业判断规则为:'+config["social"]["rule"])
+    new_rule = click.prompt('请输入新的正则规则')
+    config["social"]["rule"] = new_rule
+
+    pass
 
 def analyse_repo(owner, repository, data, config):
     click.echo("========= Community start =========")

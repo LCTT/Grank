@@ -55,6 +55,7 @@ def repo(organization, repo):
     config = helpers.get_config()
     data = crawler.fetch_repo_data(organization, repo, config)
     activity.analyse_repo(organization, repo, data, config)
+    social.analyse_email(data,config)
     social.analyse_repo(organization, repo, data, config)
     pass
 
