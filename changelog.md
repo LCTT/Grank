@@ -1,5 +1,9 @@
 # 变更日志
 
+## 0.0.19
+
+1. **紧急修复** `has_result` 的 NoneType 判断问题
+
 ## 0.0.18
 
 1.  **紧急修复** 三处 typo 导致的问题。 Co-Contributor:@LuuMing
