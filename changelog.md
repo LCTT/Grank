@@ -1,5 +1,9 @@
 # 变更日志
 
+## 0.0.17
+
+1. 合并 user 和 organ ,使用新的命令 。 Contributor: @LuuMing
+
 ## 0.0.16
 
 1. 解决了 issue #5 中 clean 的优化问题。 Contributor： @LuuMing
