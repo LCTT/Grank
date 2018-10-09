@@ -90,7 +90,7 @@ def analyse_repo(owner, repository, data, config):
     social_df["score"] = social_df.apply(
         lambda row: row.community_member / row.all_member, axis=1)
 
-    target_social_score = social_df["score"].sum() / len(social_df)
+    target_social_score = social_df["score"].mean()
 
     instance = helpers.get_social_average_instance()
 
@@ -101,10 +101,9 @@ def analyse_repo(owner, repository, data, config):
 
     helpers.export_csv(social_df,  'social', owner, repository)
 
-    helpers.generate_social_line_number(
-        start_time, end_time, int(config["rank"]["top"]))
+    helpers.generate_repository_fig('social', start_time, end_time, owner, repository)
+    helpers.generate_top_fig('social', start_time, end_time, int(config["rank"]["top"]))
 
     click.echo("输出成功 %s/%s 的社区化分数为 %.2f%%" %
                (owner, repository, 100 * target_social_score))
-    click.echo("排行榜及折线图请查看 result 目录下的 social_line.png 和 social_rank.csv")
     pass
