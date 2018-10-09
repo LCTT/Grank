@@ -31,8 +31,7 @@ def analyse_email(data,config):
     click.echo(df['author'].value_counts().drop(labels=ignore_mail,errors='ignore'))
     click.echo('')
 
-    click.echo('当前的社区化企业判断规则为:'+config["social"]["rule"])
-    new_rule = click.prompt('请输入新的正则规则',default=config["social"]["rule"])
+    new_rule = click.prompt('请输入新的社区化识别的正则规则',default=config["social"]["rule"])
     if new_rule != '':
         config["social"]["rule"] = new_rule
     click.echo('规则设置完成！')
