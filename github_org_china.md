@@ -1,6 +1,4 @@
-### 国内公司及开源社区的开源项目 GitHub地址
-
-（参考自：https://github.com/jaywcjlove/handbook/blob/master/other/Github-Oraganizations.md ）
+### 国内公司开源项目 GitHub 地址
 
 - [阿里巴巴](https://github.com/alibaba) 
   - [Ant Design](https://github.com/ant-design) 
@@ -36,7 +34,9 @@
 - [豌豆荚](https://github.com/CodisLabs) 
 - [当当](https://github.com/dangdangdotcom)  
 - [有赞](https://github.com/youzan)  
-- [StuQ](https://github.com/TeamStuQ)  
 - [深度](https://github.com/linuxdeepin) 
 - [DNSPod](https://github.com/DNSPod) 
-- [新浪微博 ](https://github.com/weibocom) 
+- [新浪微博](https://github.com/weibocom) 
+
+（最初参考[来源](https://github.com/jaywcjlove/handbook/blob/master/other/Github-Oraganizations.md)，去除了文档类项目。）
+
