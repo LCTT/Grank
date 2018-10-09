@@ -10,13 +10,14 @@ def analyse_email(data,config):
     click.echo("========= Email start =========")
     # 邮箱匹配规则
     regex_rule = re.compile('@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?')
+    ignore_mail = ['@users.noreply.github.com','']
     # common mail
     common_mail = [
             '@gmail.com','@qq.com',
             '@163.com','@foxmail.com',
-            '@users.noreply.github.com','@live.com',
+            '@live.com',
             '@126.com','@outlook.com',
-            '@yahoo.com','',
+            '@yahoo.com',
             '@aliyun.com','@yeah.net',
             '@yahoo.co.uk','@googlemail.com'
             '@hotmail.com','@yandex.ru']
@@ -26,11 +27,11 @@ def analyse_email(data,config):
         df.loc[index,"author"] = helpers.detect_email_dmain(row["author"])
 
     click.echo('')
-    click.echo(df['author'].value_counts().drop(labels=common_mail,errors='ignore'))
+    # click.echo(df['author'].value_counts().drop(labels=common_mail,errors='ignore'))
+    click.echo(df['author'].value_counts().drop(labels=ignore_mail,errors='ignore'))
     click.echo('')
 
-    click.echo('当前的社区化企业判断规则为:'+config["social"]["rule"])
-    new_rule = click.prompt('请输入新的正则规则',default='')
+    new_rule = click.prompt('请输入新的社区化识别的正则规则',default=config["social"]["rule"])
     if new_rule != '':
         config["social"]["rule"] = new_rule
     click.echo('规则设置完成！')
@@ -51,7 +52,7 @@ def analyse_repo(owner, repository, data, config):
         np.zeros((len(date_range),), dtype=int), index=date_range)
 
     social_all_frame = pd.DataFrame(commitArray)
-    social_all_frame = social_all_frame[social_all_frame.date != "未标注时间"]
+    social_all_frame = social_all_frame[(social_all_frame.author != '') & (social_all_frame.author != '@users.noreply.github.com') & (social_all_frame.date != "未标注时间")]
     social_all_frame["date"] = pd.to_datetime(social_all_frame['date'])
     for index, row in social_all_frame.iterrows():
         social_all_frame.loc[index, "author"] = helpers.is_corp(
@@ -100,7 +101,7 @@ def analyse_repo(owner, repository, data, config):
     helpers.generate_social_line_number(
         start_time, end_time, int(config["rank"]["top"]))
 
-    click.echo("输出成功 %s/%s 的社区化分数为 %.2f" %
-               (owner, repository, target_social_score))
+    click.echo("输出成功 %s/%s 的社区化分数为 %.2f%%" %
+               (owner, repository, 100 * target_social_score))
     click.echo("排行榜及折线图请查看 result 目录下的 social_line.png 和 social_rank.csv")
     pass
