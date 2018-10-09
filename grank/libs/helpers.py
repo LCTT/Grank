@@ -252,7 +252,7 @@ def generate_activity_line_number(start_time, end_time, top_number):
 
     for index, row in df.iterrows():
         if len(all_df.columns) < top_number:
-            all_df[row["name"] + "/" + row["name"]] = pd.read_pickle(
+            all_df[row["owner"] + "/" + row["name"]] = pd.read_pickle(
                 "output/activity/%s/%s.pkl" % (row["owner"],row["name"]))["score"]
         else:
             break
@@ -270,7 +270,7 @@ def generate_social_line_number(start_time, end_time, top_number):
 
     for index, row in df.iterrows():
         if len(all_df.columns) < top_number:
-            all_df[row["name"] + "/" + row["name"]] = pd.read_pickle(
+            all_df[row["owner"] + "/" + row["name"]] = pd.read_pickle(
                 "output/social/%s/%s.pkl" % (row["owner"],row["name"]))["score"]
         else:
             break
