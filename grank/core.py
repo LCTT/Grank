@@ -61,7 +61,6 @@ def repo(organization, repo):
     pass
 
 @main.command()
-@click.option('--skip')
 @click.argument('name')
 def analy(name):
     """Analyse a Github User or Organization"""
@@ -71,7 +70,7 @@ def analy(name):
     else:
         repository_array = crawler.fetch_organ_data(name, config)
     for item in repository_array["repositoryArray"]:
-        if skip and os.path.exists('output/activity/' + item["owner"] + '/' + item["repository"]):
+        if os.path.exists('output/activity/' + item["owner"] + '/' + item["repository"] + ".csv"):
             continue
         data = crawler.fetch_repo_data(
             item["owner"], item["repository"], config)
