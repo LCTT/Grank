@@ -2,9 +2,10 @@ import setuptools
 
 setuptools.setup(
     name="Grank",
-    version="0.0.22",
+    version="0.0.23",
     author="Bestony@LCTT",
     author_email="xiqingongzi@gmail.com",
+    python_requires=">=3.4",
     description="A Github Project Rank Command Line Tool",
     long_description=open('README.rst').read(),
     url="https://github.com/LCTT/Grank",
