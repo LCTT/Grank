@@ -53,14 +53,12 @@ def analyse_repo(owner, repository, data, config):
         np.zeros((len(date_range),), dtype=int), index=date_range)
 
     social_all_frame = pd.DataFrame(commitArray)
-    social_all_frame = social_all_frame[(social_all_frame.author != '') & (social_all_frame.author != '@users.noreply.github.com')]
-    social_all_frame = social_all_frame[social_all_frame.date != "未标注时间"]
+    social_all_frame = social_all_frame[(social_all_frame.author != '') & (social_all_frame.author != '@users.noreply.github.com') & (social_all_frame.date != "未标注时间")]
     social_all_frame["date"] = pd.to_datetime(social_all_frame['date'])
     for index, row in social_all_frame.iterrows():
         social_all_frame.loc[index, "author"] = helpers.is_corp(
             row["author"], config)
 
-    social_all_frame = social_all_frame[social_all_frame.email == '' || re.search("@users.noreply.github.com",social_all_frame.email)]
     community_df = social_all_frame[social_all_frame.author != True].set_index(
         'date').resample('W')['times'].sum()
     social_all_df = social_all_frame.set_index(
@@ -104,7 +102,7 @@ def analyse_repo(owner, repository, data, config):
     helpers.generate_social_line_number(
         start_time, end_time, int(config["rank"]["top"]))
 
-    click.echo("输出成功 %s/%s 的社区化分数为 %.2f" %
-               (owner, repository, target_social_score))
+    click.echo("输出成功 %s/%s 的社区化分数为 %.2f%%" %
+               (owner, repository, 100 * target_social_score))
     click.echo("排行榜及折线图请查看 result 目录下的 social_line.png 和 social_rank.csv")
     pass
