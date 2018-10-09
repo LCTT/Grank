@@ -79,8 +79,8 @@ def analy(name):
         social.analyse_repo(item["owner"], item["repository"], data, config)
         # 生成折线图
         helpers.generate_repository_fig(config['start_time'], config['end_time'], item["owner"], item["repository"])
-        helpers.generate_top_fig('activity', config['start_time'], config['end_time'], int(config["rank"]["top"]))        
-        helpers.generate_top_fig('social', config['start_time'], config['end_time'], int(config["rank"]["top"]))        
+
+    helpers.generate_top_fig(config['start_time'], config['end_time'], int(config["rank"]["top"]))        
     pass
 
 @main.command()
