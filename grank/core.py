@@ -49,15 +49,17 @@ def checklogin():
 
 
 @main.command()
-@click.argument('organization')
+@click.argument('owner')
 @click.argument('repo')
-def repo(organization, repo):
+def repo(owner, repo):
     """Analyse a Github Repository"""
     config = helpers.get_config()
-    data = crawler.fetch_repo_data(organization, repo, config)
-    activity.analyse_repo(organization, repo, data, config)
+    data = crawler.fetch_repo_data(owner, repo, config)
+    activity.analyse_repo(owner, repo, data, config)
     social.analyse_email(data,config)
-    social.analyse_repo(organization, repo, data, config)
+    social.analyse_repo(owner, repo, data, config)
+    helpers.generate_repository_fig(config['start_time'], config['end_time'], owner, repo)
+    helpers.generate_top_fig(config['start_time'], config['end_time'], int(config["rank"]["top"]))
     pass
 
 @main.command()
