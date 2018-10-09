@@ -1,4 +1,5 @@
 import click
+import os
 import sys
 import warnings
 warnings.filterwarnings('ignore')
@@ -48,15 +49,17 @@ def checklogin():
 
 
 @main.command()
-@click.argument('organization')
+@click.argument('owner')
 @click.argument('repo')
-def repo(organization, repo):
+def repo(owner, repo):
     """Analyse a Github Repository"""
     config = helpers.get_config()
-    data = crawler.fetch_repo_data(organization, repo, config)
-    activity.analyse_repo(organization, repo, data, config)
+    data = crawler.fetch_repo_data(owner, repo, config)
+    activity.analyse_repo(owner, repo, data, config)
     social.analyse_email(data,config)
-    social.analyse_repo(organization, repo, data, config)
+    social.analyse_repo(owner, repo, data, config)
+    helpers.generate_repository_fig(config['time']['start_time'], config['time']['end_time'], owner, repo)
+    helpers.generate_top_fig(config['time']['start_time'], config['time']['end_time'], int(config['rank']['top']))
     pass
 
 @main.command()
@@ -69,11 +72,17 @@ def analy(name):
     else:
         repository_array = crawler.fetch_organ_data(name, config)
     for item in repository_array["repositoryArray"]:
+        if os.path.exists('output/activity/' + item["owner"] + '/' + item["repository"] + ".csv"):
+            continue
         data = crawler.fetch_repo_data(
             item["owner"], item["repository"], config)
         activity.analyse_repo(item["owner"], item["repository"], data, config)
         social.analyse_email(data,config)
         social.analyse_repo(item["owner"], item["repository"], data, config)
+        # 生成折线图
+        helpers.generate_repository_fig(config['time']['start_time'], config['time']['end_time'], item['owner'], item['repository'])
+
+    helpers.generate_top_fig(config['time']['start_time'], config['time']['end_time'], int(config['rank']['top']))        
     pass
 
 @main.command()

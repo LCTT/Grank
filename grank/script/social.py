@@ -101,9 +101,6 @@ def analyse_repo(owner, repository, data, config):
 
     helpers.export_csv(social_df,  'social', owner, repository)
 
-    helpers.generate_repository_fig('social', start_time, end_time, owner, repository)
-    helpers.generate_top_fig('social', start_time, end_time, int(config["rank"]["top"]))
-
     click.echo("输出成功 %s/%s 的社区化分数为 %.2f%%" %
                (owner, repository, 100 * target_social_score))
     pass

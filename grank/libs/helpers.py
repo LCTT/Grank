@@ -246,37 +246,58 @@ def set_social_average(instance, owner, repository, score):
 
 
 
-def generate_top_fig(part, start_time, end_time, top_number):
+def generate_top_fig(start_time, end_time, top_number):
     """生成平均值的折线图"""
-    df = pd.read_pickle("output/" + part + "_average.pkl")
-    all_df = pd.DataFrame(data=[], index=pd.date_range(
+    df = pd.read_pickle("output/activity_average.pkl")
+    activity_df = pd.DataFrame(data=[], index=pd.date_range(
+        start=start_time, end=end_time, freq="W"))
+    social_df = pd.DataFrame(data=[], index=pd.date_range(
         start=start_time, end=end_time, freq="W"))
 
     for index, row in df.iterrows():
-        if len(all_df.columns) < top_number:
-            all_df[row["owner"] + "/" + row["repos"]] = pd.read_pickle(
-                "output/" + part + "/%s/%s.pkl" % (row["owner"],row["repos"]))["score"]
+        if len(activity_df.columns) < top_number:
+            activity_df[row["owner"] + "/" + row["repos"]] = pd.read_pickle(
+                "output/activity/%s/%s.pkl" % (row["owner"],row["repos"]))["score"]
+            """跟随 activity """
+            social_df[row["owner"] + "/" + row["repos"]] = pd.read_pickle(
+                "output/social/%s/%s.pkl" % (row["owner"],row["repos"]))["score"] * 100
         else:
             break
 
-    fig = all_df.plot().get_figure()
-    fig.savefig("result/" + part + "_line.png")
-    plt.close(fig)
+    activity_fig = activity_df.plot().get_figure()
+    activity_fig.savefig("result/activity_line.png")
+    plt.close(activity_fig)
+    social_fig = social_df.plot().get_figure()
+    social_fig.savefig("result/social_line.png")
+    plt.close(social_fig)
 
-def generate_repository_fig(part, start_time, end_time, owner, repository):
-    """生成平均值的折线图"""
-    df = pd.read_pickle("output/" + part + "_average.pkl")
+def generate_repository_fig(start_time, end_time, owner, repository):
+    df = pd.read_pickle("output/activity_average.pkl")
     all_df = pd.DataFrame(data=[], index=pd.date_range(
         start=start_time, end=end_time, freq="W"))
 
-    for index, row in df.iterrows():
-        all_df[owner + "/" + repository] = pd.read_pickle(
-            "output/"+ part + "/%s/%s.pkl" % (owner,repository))["score"]
+    all_df['activity'] = pd.read_pickle(
+        "output/activity/%s/%s.pkl" % (owner,repository))["score"]
+    all_df['social'] = pd.read_pickle(
+        "output/social/%s/%s.pkl" % (owner,repository))["score"] * 100
 
-    if not os.path.exists('result/' + part + '/' + owner):
-        os.makedirs('result/' + part + '/' + owner)
-    fig = all_df.plot().get_figure()
-    fig.savefig("result/" + part + "/" + owner + "/" + repository + ".png")
+    fig, ax1 = plt.subplots()
+    color = 'tab:red'
+    ax1.set_xlabel('Time')
+    ax1.set_ylabel('activity(%.2f)' % all_df['activity'].mean(), color=color)
+    ax1.plot(all_df['activity'], color=color)
+    ax1.tick_params(axis='y', labelcolor=color)
+    
+    ax2 = ax1.twinx()
+    color = 'tab:blue'
+    ax2.set_ylabel('social(%.2f%%)' % all_df['social'].mean(), color=color)
+    ax2.plot(all_df['social'], color=color)
+    ax2.tick_params(axis='y', labelcolor=color)
+    fig.tight_layout()
+
+    if not os.path.exists('result/' + owner):
+        os.makedirs('result/' + owner)
+    fig.savefig("result/" + owner + "/" + repository + ".png")
     plt.close(fig)
 
 def clean_directory():
