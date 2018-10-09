@@ -264,10 +264,10 @@ def generate_top_fig(start_time, end_time, top_number):
         else:
             break
 
-    activity_fig = activity_df.plot().get_figure()
+    activity_fig = activity_df.plot(title='Activity').get_figure()
     activity_fig.savefig("result/activity_line.png")
     plt.close(activity_fig)
-    social_fig = social_df.plot().get_figure()
+    social_fig = social_df.plot(title='Social').get_figure()
     social_fig.savefig("result/social_line.png")
     plt.close(social_fig)
 
@@ -283,6 +283,7 @@ def generate_repository_fig(start_time, end_time, owner, repository):
 
     fig, ax1 = plt.subplots()
     color = 'tab:red'
+    ax1.set_title(owner + "/" + repository)
     ax1.set_xlabel('Time')
     ax1.set_ylabel('activity(%.2f)' % all_df['activity'].mean(), color=color)
     ax1.plot(all_df['activity'], color=color)
