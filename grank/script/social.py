@@ -14,9 +14,9 @@ def analyse_email(data,config):
     common_mail = [
             '@gmail.com','@qq.com',
             '@163.com','@foxmail.com',
-            '@users.noreply.github.com','@live.com',
+            '@live.com',
             '@126.com','@outlook.com',
-            '@yahoo.com','',
+            '@yahoo.com',
             '@aliyun.com','@yeah.net',
             '@yahoo.co.uk','@googlemail.com'
             '@hotmail.com','@yandex.ru']
@@ -26,7 +26,8 @@ def analyse_email(data,config):
         df.loc[index,"author"] = helpers.detect_email_dmain(row["author"])
 
     click.echo('')
-    click.echo(df['author'].value_counts().drop(labels=common_mail,errors='ignore'))
+    # click.echo(df['author'].value_counts().drop(labels=common_mail,errors='ignore'))
+    click.echo(df['author'].value_counts())
     click.echo('')
 
     click.echo('当前的社区化企业判断规则为:'+config["social"]["rule"])
@@ -57,7 +58,7 @@ def analyse_repo(owner, repository, data, config):
         social_all_frame.loc[index, "author"] = helpers.is_corp(
             row["author"], config)
 
-    social_all_frame = social_all_frame[re.search("@users.noreply.github.com",social_all_frame.email)]
+    social_all_frame = social_all_frame[social_all_frame.email == '' || re.search("@users.noreply.github.com",social_all_frame.email)]
     community_df = social_all_frame[social_all_frame.author != True].set_index(
         'date').resample('W')['times'].sum()
     social_all_df = social_all_frame.set_index(
