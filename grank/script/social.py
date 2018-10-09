@@ -10,6 +10,7 @@ def analyse_email(data,config):
     click.echo("========= Email start =========")
     # 邮箱匹配规则
     regex_rule = re.compile('@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?')
+    ignore_mail = ['@users.noreply.github.com','']
     # common mail
     common_mail = [
             '@gmail.com','@qq.com',
@@ -27,11 +28,11 @@ def analyse_email(data,config):
 
     click.echo('')
     # click.echo(df['author'].value_counts().drop(labels=common_mail,errors='ignore'))
-    click.echo(df['author'].value_counts())
+    click.echo(df['author'].value_counts().drop(labels=ignore_mail,errors='ignore'))
     click.echo('')
 
     click.echo('当前的社区化企业判断规则为:'+config["social"]["rule"])
-    new_rule = click.prompt('请输入新的正则规则',default='')
+    new_rule = click.prompt('请输入新的正则规则',default=config["social"]["rule"])
     if new_rule != '':
         config["social"]["rule"] = new_rule
     click.echo('规则设置完成！')
@@ -52,6 +53,7 @@ def analyse_repo(owner, repository, data, config):
         np.zeros((len(date_range),), dtype=int), index=date_range)
 
     social_all_frame = pd.DataFrame(commitArray)
+    social_all_frame = social_all_frame[(social_all_frame.author != '') & (social_all_frame.author != '@users.noreply.github.com')]
     social_all_frame = social_all_frame[social_all_frame.date != "未标注时间"]
     social_all_frame["date"] = pd.to_datetime(social_all_frame['date'])
     for index, row in social_all_frame.iterrows():
