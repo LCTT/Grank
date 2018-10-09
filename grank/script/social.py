@@ -24,11 +24,11 @@ def analyse_email(data,config):
     df = pd.DataFrame(data["commitArray"])
 
     for index,row in df.iterrows():
-        df.loc[index,"author"] = helpers.detect_email_dmain(row["author"])
+        df.loc[index,"domain"] = helpers.detect_email_domain(row["author"])
 
     click.echo('')
     # click.echo(df['author'].value_counts().drop(labels=common_mail,errors='ignore'))
-    click.echo(df['author'].value_counts().drop(labels=ignore_mail,errors='ignore'))
+    click.echo(df['domain'].value_counts().drop(labels=ignore_mail,errors='ignore'))
     click.echo('')
 
     new_rule = click.prompt('请输入新的社区化识别的正则规则',default=config["social"]["rule"])
@@ -52,13 +52,13 @@ def analyse_repo(owner, repository, data, config):
         np.zeros((len(date_range),), dtype=int), index=date_range)
 
     social_all_frame = pd.DataFrame(commitArray)
-    social_all_frame = social_all_frame[(social_all_frame.author != '') & (social_all_frame.author != '@users.noreply.github.com') & (social_all_frame.date != "未标注时间")]
+    social_all_frame = social_all_frame[(social_all_frame.domain != '') & (social_all_frame.domain != '@users.noreply.github.com') & (social_all_frame.date != "未标注时间")]
     social_all_frame["date"] = pd.to_datetime(social_all_frame['date'])
     for index, row in social_all_frame.iterrows():
-        social_all_frame.loc[index, "author"] = helpers.is_corp(
-            row["author"], config)
+        social_all_frame.loc[index, "is_corp"] = helpers.is_corp(
+            row["domain"], config)
 
-    community_df = social_all_frame[social_all_frame.author != True].set_index(
+    community_df = social_all_frame[social_all_frame.is_corp != True].set_index(
         'date').resample('W')['times'].sum()
     social_all_df = social_all_frame.set_index(
         'date').resample('W')['times'].sum()
