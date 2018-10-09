@@ -246,74 +246,39 @@ def set_social_average(instance, owner, repository, score):
 
 
 
-def generate_activity_top_fig(start_time, end_time, top_number):
+def generate_top_fig(part, start_time, end_time, top_number):
     """生成平均值的折线图"""
-    df = pd.read_pickle("output/activity_average.pkl")
+    df = pd.read_pickle("output/" + part + "_average.pkl")
     all_df = pd.DataFrame(data=[], index=pd.date_range(
         start=start_time, end=end_time, freq="W"))
 
     for index, row in df.iterrows():
         if len(all_df.columns) < top_number:
             all_df[row["owner"] + "/" + row["repos"]] = pd.read_pickle(
-                "output/activity/%s/%s.pkl" % (row["owner"],row["repos"]))["score"]
+                "output/" + part + "/%s/%s.pkl" % (row["owner"],row["repos"]))["score"]
         else:
             break
 
     fig = all_df.plot().get_figure()
-    fig.savefig("result/activity_line.png")
+    fig.savefig("result/" + part + "_line.png")
     plt.close(fig)
 
-
-def generate_social_top_fig(start_time, end_time, top_number):
+def generate_repository_fig(part, start_time, end_time, owner, repository):
     """生成平均值的折线图"""
-    df = pd.read_pickle("output/social_average.pkl")
-    all_df = pd.DataFrame(data=[], index=pd.date_range(
-        start=start_time, end=end_time, freq="W"))
-
-    for index, row in df.iterrows():
-        if len(all_df.columns) < top_number:
-            all_df[row["owner"] + "/" + row["repos"]] = pd.read_pickle(
-                "output/social/%s/%s.pkl" % (row["owner"],row["repos"]))["score"]
-        else:
-            break
-
-    fig = all_df.plot().get_figure()
-    fig.savefig("result/social_line.png")
-    plt.close(fig)
-
-def generate_activity_fig(start_time, end_time, owner, repository):
-    """生成平均值的折线图"""
-    df = pd.read_pickle("output/activity_average.pkl")
+    df = pd.read_pickle("output/" + part + "_average.pkl")
     all_df = pd.DataFrame(data=[], index=pd.date_range(
         start=start_time, end=end_time, freq="W"))
 
     for index, row in df.iterrows():
         all_df[owner + "/" + repository] = pd.read_pickle(
-            "output/activity/%s/%s.pkl" % (owner,repository))["score"]
+            "output/"+ part + "/%s/%s.pkl" % (owner,repository))["score"]
 
-    if not os.path.exists('result/activity/' + owner):
-        os.makedirs('result/activity/' + owner)
+    if not os.path.exists('result/' + part + '/' + owner):
+        os.makedirs('result/' + part + '/' + owner)
     fig = all_df.plot().get_figure()
-    fig.savefig("result/activity/" + owner + "/" + repository + ".png")
+    fig.savefig("result/" + part + "/" + owner + "/" + repository + ".png")
     plt.close(fig)
 
-
-def generate_social_top_fig(start_time, end_time, top_number):
-    """生成平均值的折线图"""
-    df = pd.read_pickle("output/social_average.pkl")
-    all_df = pd.DataFrame(data=[], index=pd.date_range(
-        start=start_time, end=end_time, freq="W"))
-
-    for index, row in df.iterrows():
-        all_df[owner + "/" + repository] = pd.read_pickle(
-            "output/social/%s/%s.pkl" % (owner,repository))["score"]
-
-    if not os.path.exists('result/social/' + owner):
-        os.makedirs('result/social/' + owner)
-    fig = all_df.plot().get_figure()
-    fig.savefig("result/social/" + owner + "/" + repository + ".png")
-    plt.close(fig)
-    
 def clean_directory():
     """清空临时目录及结果目录"""
     dirs = ['result','output']
