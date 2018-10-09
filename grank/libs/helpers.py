@@ -179,7 +179,7 @@ def add_item_to_commit_array(item, blank_array):
     """针对 commit 的数组处理"""
     blank_array.append({
         'author': item["node"]["author"]["email"],
-        'domain': helpers.detect_email_domain(item["node"]["author"]["email"]),
+        'domain': detect_email_domain(item["node"]["author"]["email"]),
         'is_corp': False,
         'date': cover_time(item["node"]["pushedDate"]),
         "times": 1
