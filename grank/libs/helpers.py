@@ -192,10 +192,18 @@ def add_item_to_pr_array(item, blank_array):
     })
 
 
-def export_csv(series, name):
+def export_csv(series, part, owner, repository):
     """导出 Csv 文件"""
-    series.to_csv("output/%s.csv" % name)
+    if not os.path.exists('output/' + part + '/' + owner):
+        os.makedirs('output/' + part + '/' + owner)  
+    series.to_csv("output/" + part + "/" + owner + "/" + "%s.csv" % repository)
 
+
+def series_to_pickle(df, part, owner, repository):
+    """将数据保存到 pickle 中"""
+    if not os.path.exists('output/' + part + '/' + owner):
+        os.makedirs('output/' + part + '/' + owner)  
+    df.to_pickle("output/" + part + "/" + owner + "/" + "%s.pkl" % repository)
 
 def get_activity_average_instance():
     """获取平均值 DF 实例"""
@@ -235,10 +243,6 @@ def set_social_average(instance, owner, repository, score):
     instance.to_csv("result/social_rank.csv",float_format="%.2f")
 
 
-def series_to_pickle(df, name):
-    """将数据保存到 pickle 中"""
-    df.to_pickle("output/%s.pkl" % name)
-
 
 def generate_activity_line_number(start_time, end_time, top_number):
     """生成平均值的折线图"""
@@ -248,8 +252,8 @@ def generate_activity_line_number(start_time, end_time, top_number):
 
     for index, row in df.iterrows():
         if len(all_df.columns) < top_number:
-            all_df[row["name"]] = pd.read_pickle(
-                "output/%s.pkl" % row["name"])["score"]
+            all_df[row["name"] + "/" + row["name"]] = pd.read_pickle(
+                "output/activity/%s/%s.pkl" % (row["owner"],row["name"]))["score"]
         else:
             break
 
@@ -266,8 +270,8 @@ def generate_social_line_number(start_time, end_time, top_number):
 
     for index, row in df.iterrows():
         if len(all_df.columns) < top_number:
-            all_df[row["name"]] = pd.read_pickle(
-                "output/social_%s.pkl" % row["name"])["score"]
+            all_df[row["name"] + "/" + row["name"]] = pd.read_pickle(
+                "output/social/%s/%s.pkl" % (row["owner"],row["name"]))["score"]
         else:
             break
 
@@ -315,7 +319,7 @@ def get_user_type(name):
     r = requests.get("https://api.github.com/users/"+name)
     return r.json()["type"] == "User"
 
-def detect_email_dmain(name):
+def detect_email_domain(name):
     rule = '@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?'
     search_result= re.search(rule,name)
 
