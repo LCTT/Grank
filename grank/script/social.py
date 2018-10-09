@@ -57,6 +57,7 @@ def analyse_repo(owner, repository, data, config):
         social_all_frame.loc[index, "author"] = helpers.is_corp(
             row["author"], config)
 
+    social_all_frame = social_all_frame[re.search("@users.noreply.github.com",social_all_frame.email)]
     community_df = social_all_frame[social_all_frame.author != True].set_index(
         'date').resample('W')['times'].sum()
     social_all_df = social_all_frame.set_index(
