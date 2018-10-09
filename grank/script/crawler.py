@@ -15,6 +15,8 @@ def fetch_repo_data(owner, repository, config):
     # 添加一个可过滤掉的数据，确保后续执行完成
     commitArray.append({
         'author': 'localhost',
+        'domain': '',
+        'is_corp': False,
         'date': '未标注时间',
         "times": 1
     })
