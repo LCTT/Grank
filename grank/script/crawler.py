@@ -89,7 +89,7 @@ def fetch_user_data(user, config):
                     repositoryArray.append(
                         {"owner": user, "repository": repo["name"]})
 
-        click.echo("继续抓取用户数据:%s" % user)
+        click.echo("继续抓取用户数据: %s" % user)
         next_query = query.user_all_query_with_pager % (
             user, helpers.get_page_cursor(result, "user_repository"))
         result = helpers.query(next_query, config)
@@ -102,7 +102,7 @@ def fetch_user_data(user, config):
 
 def fetch_organ_data(organization, config):
     repositoryArray = []
-    click.echo("开始抓取组织数据:%s" % organization)
+    click.echo("开始抓取组织数据: %s" % organization)
     all_query = query.organ_all_query % organization
     result = helpers.query(all_query, config)
     if (helpers.has_result(result, 'repository')):
@@ -119,7 +119,7 @@ def fetch_organ_data(organization, config):
                     repositoryArray.append(
                         {"owner": organization, "repository": repo["name"]})
 
-        click.echo("继续抓取组织数据:%s" % organization)
+        click.echo("继续抓取组织数据: %s" % organization)
         next_query = query.organ_all_query_with_pager % (
             organization, helpers.get_page_cursor(result, "repository"))
         result = helpers.query(next_query, config)
