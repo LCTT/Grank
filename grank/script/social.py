@@ -91,12 +91,12 @@ def analyse_repo(owner, repository, data, config):
 
     instance = helpers.get_social_average_instance()
 
-    helpers.series_to_pickle(social_df, "social_%s" % repository)
+    helpers.series_to_pickle(social_df, 'social', owner, repository)
 
     helpers.set_social_average(
         instance, owner, repository, target_social_score)
 
-    helpers.export_csv(social_df, "social_%s" % repository)
+    helpers.export_csv(social_df,  'social', owner, repository)
 
     helpers.generate_social_line_number(
         start_time, end_time, int(config["rank"]["top"]))
