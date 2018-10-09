@@ -93,10 +93,6 @@ def analyse_repo(owner, repository, data, config):
     # 输出项目的 CSV 数据
     helpers.export_csv(new_df, 'activity', owner, repository)
 
-    # 生成折线图
-    helpers.generate_repository_fig('activity', start_time, end_time, owner, repository)
-    helpers.generate_top_fig('activity', start_time, end_time, int(config["rank"]["top"]))
-
     click.echo("输出成功,%s 旗下的 %s 项目的活跃分数为 %.2f" %
                (owner, repository, target_score))
 
