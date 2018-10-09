@@ -58,8 +58,8 @@ def repo(owner, repo):
     activity.analyse_repo(owner, repo, data, config)
     social.analyse_email(data,config)
     social.analyse_repo(owner, repo, data, config)
-    helpers.generate_repository_fig(config['start_time'], config['end_time'], owner, repo)
-    helpers.generate_top_fig(config['start_time'], config['end_time'], int(config["rank"]["top"]))
+    helpers.generate_repository_fig(config['time']['start_time'], config['time']['end_time'], owner, repo)
+    helpers.generate_top_fig(config['time']['start_time'], config['time']['end_time'], int(config['rank']['top']))
     pass
 
 @main.command()
@@ -80,9 +80,9 @@ def analy(name):
         social.analyse_email(data,config)
         social.analyse_repo(item["owner"], item["repository"], data, config)
         # 生成折线图
-        helpers.generate_repository_fig(config['start_time'], config['end_time'], item["owner"], item["repository"])
+        helpers.generate_repository_fig(config['time']['start_time'], config['time']['end_time'], item['owner'], item['repository'])
 
-    helpers.generate_top_fig(config['start_time'], config['end_time'], int(config["rank"]["top"]))        
+    helpers.generate_top_fig(config['time']['start_time'], config['time']['end_time'], int(config['rank']['top']))        
     pass
 
 @main.command()
