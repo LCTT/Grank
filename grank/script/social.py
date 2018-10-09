@@ -52,6 +52,9 @@ def analyse_repo(owner, repository, data, config):
         np.zeros((len(date_range),), dtype=int), index=date_range)
 
     social_all_frame = pd.DataFrame(commitArray)
+    for index,row in social_all_frame.iterrows():
+        social_all_frame.loc[index,"domain"] = helpers.detect_email_domain(row["author"])
+        
     social_all_frame = social_all_frame[(social_all_frame.domain != '') & (social_all_frame.domain != '@users.noreply.github.com') & (social_all_frame.date != "未标注时间")]
     social_all_frame["date"] = pd.to_datetime(social_all_frame['date'])
     for index, row in social_all_frame.iterrows():
