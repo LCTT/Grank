@@ -90,7 +90,7 @@ def analyse_repo(owner, repository, data, config):
     social_df["score"] = social_df.apply(
         lambda row: row.community_member / row.all_member, axis=1)
 
-    target_social_score = social_df["score"].sum() / len(social_df)
+    target_social_score = social_df["score"].mean()
 
     instance = helpers.get_social_average_instance()
 
