@@ -260,7 +260,7 @@ def generate_top_fig(start_time, end_time, top_number):
                 "output/activity/%s/%s.pkl" % (row["owner"],row["repos"]))["score"]
             """跟随 activity """
             social_df[row["owner"] + "/" + row["repos"]] = pd.read_pickle(
-                "output/social/%s/%s.pkl" % (row["owner"],row["repos"]))["score"]
+                "output/social/%s/%s.pkl" % (row["owner"],row["repos"]))["score"] * 100
         else:
             break
 
@@ -279,18 +279,18 @@ def generate_repository_fig(start_time, end_time, owner, repository):
     all_df['activity'] = pd.read_pickle(
         "output/activity/%s/%s.pkl" % (owner,repository))["score"]
     all_df['social'] = pd.read_pickle(
-        "output/social/%s/%s.pkl" % (owner,repository))["score"]
+        "output/social/%s/%s.pkl" % (owner,repository))["score"] * 100
 
     fig, ax1 = plt.subplots()
     color = 'tab:red'
     ax1.set_xlabel('Time')
-    ax1.set_ylabel('activity(' + all_df['activity']['score'].mean() + ')', color=color)
+    ax1.set_ylabel('activity(%.2f)' % all_df['activity'].mean(), color=color)
     ax1.plot(all_df['activity'], color=color)
     ax1.tick_params(axis='y', labelcolor=color)
     
     ax2 = ax1.twinx()
     color = 'tab:blue'
-    ax2.set_ylabel('social(' + all_df['social']['score'].mean() + ')', color=color)
+    ax2.set_ylabel('social(%.2f%%)' % all_df['social'].mean(), color=color)
     ax2.plot(all_df['social'], color=color)
     ax2.tick_params(axis='y', labelcolor=color)
     fig.tight_layout()
