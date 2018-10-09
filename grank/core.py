@@ -47,41 +47,37 @@ def checklogin():
     click.echo('Your Username is %s' % result["data"]["viewer"]["login"])
     pass
 
-
 @main.command()
-@click.argument('owner')
-@click.argument('repo')
-def repo(owner, repo):
-    """Analyse a Github Repository"""
-    config = helpers.get_config()
-    data = crawler.fetch_repo_data(owner, repo, config)
-    activity.analyse_repo(owner, repo, data, config)
-    social.analyse_email(data,config)
-    social.analyse_repo(owner, repo, data, config)
-    helpers.generate_repository_fig(config['time']['start_time'], config['time']['end_time'], owner, repo)
-    helpers.generate_top_fig(config['time']['start_time'], config['time']['end_time'], int(config['rank']['top']))
-    pass
-
-@main.command()
-@click.argument('name')
-def analy(name):
+@click.argument('args', nargs=-1)
+def analy(args):
     """Analyse a Github User or Organization"""
     config = helpers.get_config()
-    if helpers.get_user_type(name) is True:
-        repository_array = crawler.fetch_user_data(name, config)
+    if len(args) == 0:
+        click.echo('grank analy owner [repo]')
+    elif len(args) == 1:
+        owner = args[0]
+        if helpers.get_user_type(owner) is True:
+            repository_array = crawler.fetch_user_data(owner, config)
+        else:
+            repository_array = crawler.fetch_organ_data(owner, config)
+        for item in repository_array["repositoryArray"]:
+            if os.path.exists('output/activity/' + item["owner"] + '/' + item["repository"] + ".csv"):
+                continue
+            data = crawler.fetch_repo_data(item["owner"], item["repository"], config)
+            activity.analyse_repo(item["owner"], item["repository"], data, config)
+            social.analyse_email(data,config)
+            social.analyse_repo(item["owner"], item["repository"], data, config)
+            # 生成折线图
+            helpers.generate_repository_fig(config['time']['start_time'], config['time']['end_time'], item['owner'], item['repository'])
     else:
-        repository_array = crawler.fetch_organ_data(name, config)
-    for item in repository_array["repositoryArray"]:
-        if os.path.exists('output/activity/' + item["owner"] + '/' + item["repository"] + ".csv"):
-            continue
-        data = crawler.fetch_repo_data(
-            item["owner"], item["repository"], config)
-        activity.analyse_repo(item["owner"], item["repository"], data, config)
+        owner = args[0]
+        repo = args[1]
+        data = crawler.fetch_repo_data(owner, repo, config)
+        activity.analyse_repo(owner, repo, data, config)
         social.analyse_email(data,config)
-        social.analyse_repo(item["owner"], item["repository"], data, config)
-        # 生成折线图
-        helpers.generate_repository_fig(config['time']['start_time'], config['time']['end_time'], item['owner'], item['repository'])
-
+        social.analyse_repo(owner, repo, data, config)
+        helpers.generate_repository_fig(config['time']['start_time'], config['time']['end_time'], owner, repo)
+        
     helpers.generate_top_fig(config['time']['start_time'], config['time']['end_time'], int(config['rank']['top']))        
     pass
 
