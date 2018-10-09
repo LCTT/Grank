@@ -179,6 +179,8 @@ def add_item_to_commit_array(item, blank_array):
     """针对 commit 的数组处理"""
     blank_array.append({
         'author': item["node"]["author"]["email"],
+        'domain': helpers.detect_email_domain(item["node"]["author"]["email"]),
+        'is_corp': False,
         'date': cover_time(item["node"]["pushedDate"]),
         "times": 1
     })
@@ -208,7 +210,7 @@ def series_to_pickle(df, part, owner, repository):
 def get_activity_average_instance():
     """获取平均值 DF 实例"""
     if not os.path.isfile("output/activity_average.pkl"):
-        pd.DataFrame(data={'name': [], 'score': []}).to_pickle(
+        pd.DataFrame(data={'repos': [], 'score': []}).to_pickle(
             "output/activity_average.pkl")
     return pd.read_pickle("output/activity_average.pkl")
 
@@ -216,7 +218,7 @@ def get_activity_average_instance():
 def get_social_average_instance():
     """获取活跃度平均值 DF 实例"""
     if not os.path.isfile("output/social_average.pkl"):
-        pd.DataFrame(data={'name': [], 'score': []}).to_pickle(
+        pd.DataFrame(data={'repos': [], 'score': []}).to_pickle(
             "output/social_average.pkl")
     return pd.read_pickle("output/social_average.pkl")
 
@@ -224,9 +226,9 @@ def get_social_average_instance():
 def set_activity_average(instance, owner, repository, score):
     """保存中间值，并更新 csv 文件"""
     instance = instance.append(pd.Series(
-        {"owner": owner, "name": repository, "score": score}), ignore_index=True)
+        {"owner": owner, "repos": repository, "score": score}), ignore_index=True)
     instance = instance.drop_duplicates(
-        subset=["owner", "name"]).sort_values(["score"], ascending=False)
+        subset=["owner", "repos"]).sort_values(["score"], ascending=False)
     instance.to_pickle("output/activity_average.pkl")
     instance.to_csv("result/activity_rank.csv",float_format="%.2f")
 
@@ -235,16 +237,16 @@ def set_social_average(instance, owner, repository, score):
     """保存中间值，并更新 csv 文件"""
 
     instance = instance.append(pd.Series(
-        {"owner": owner, "name": repository, "score": score}), ignore_index=True)
+        {"owner": owner, "repos": repository, "score": score}), ignore_index=True)
     instance = instance.drop_duplicates(
-        subset=["owner", "name"]).sort_values(["score"], ascending=False)
+        subset=["owner", "repos"]).sort_values(["score"], ascending=False)
 
     instance.to_pickle("output/social_average.pkl")
     instance.to_csv("result/social_rank.csv",float_format="%.2f")
 
 
 
-def generate_activity_line_number(start_time, end_time, top_number):
+def generate_activity_top_fig(start_time, end_time, top_number):
     """生成平均值的折线图"""
     df = pd.read_pickle("output/activity_average.pkl")
     all_df = pd.DataFrame(data=[], index=pd.date_range(
@@ -252,8 +254,8 @@ def generate_activity_line_number(start_time, end_time, top_number):
 
     for index, row in df.iterrows():
         if len(all_df.columns) < top_number:
-            all_df[row["owner"] + "/" + row["name"]] = pd.read_pickle(
-                "output/activity/%s/%s.pkl" % (row["owner"],row["name"]))["score"]
+            all_df[row["owner"] + "/" + row["repos"]] = pd.read_pickle(
+                "output/activity/%s/%s.pkl" % (row["owner"],row["repos"]))["score"]
         else:
             break
 
@@ -262,7 +264,7 @@ def generate_activity_line_number(start_time, end_time, top_number):
     plt.close(fig)
 
 
-def generate_social_line_number(start_time, end_time, top_number):
+def generate_social_top_fig(start_time, end_time, top_number):
     """生成平均值的折线图"""
     df = pd.read_pickle("output/social_average.pkl")
     all_df = pd.DataFrame(data=[], index=pd.date_range(
@@ -270,8 +272,8 @@ def generate_social_line_number(start_time, end_time, top_number):
 
     for index, row in df.iterrows():
         if len(all_df.columns) < top_number:
-            all_df[row["owner"] + "/" + row["name"]] = pd.read_pickle(
-                "output/social/%s/%s.pkl" % (row["owner"],row["name"]))["score"]
+            all_df[row["owner"] + "/" + row["repos"]] = pd.read_pickle(
+                "output/social/%s/%s.pkl" % (row["owner"],row["repos"]))["score"]
         else:
             break
 
@@ -279,6 +281,39 @@ def generate_social_line_number(start_time, end_time, top_number):
     fig.savefig("result/social_line.png")
     plt.close(fig)
 
+def generate_activity_fig(start_time, end_time, owner, repository):
+    """生成平均值的折线图"""
+    df = pd.read_pickle("output/activity_average.pkl")
+    all_df = pd.DataFrame(data=[], index=pd.date_range(
+        start=start_time, end=end_time, freq="W"))
+
+    for index, row in df.iterrows():
+        all_df[owner + "/" + repository] = pd.read_pickle(
+            "output/activity/%s/%s.pkl" % (owner,repository))["score"]
+
+    if not os.path.exists('result/activity/' + owner):
+        os.makedirs('result/activity/' + owner)
+    fig = all_df.plot().get_figure()
+    fig.savefig("result/activity/" + owner + "/" + repository + ".png")
+    plt.close(fig)
+
+
+def generate_social_top_fig(start_time, end_time, top_number):
+    """生成平均值的折线图"""
+    df = pd.read_pickle("output/social_average.pkl")
+    all_df = pd.DataFrame(data=[], index=pd.date_range(
+        start=start_time, end=end_time, freq="W"))
+
+    for index, row in df.iterrows():
+        all_df[owner + "/" + repository] = pd.read_pickle(
+            "output/social/%s/%s.pkl" % (owner,repository))["score"]
+
+    if not os.path.exists('result/social/' + owner):
+        os.makedirs('result/social/' + owner)
+    fig = all_df.plot().get_figure()
+    fig.savefig("result/social/" + owner + "/" + repository + ".png")
+    plt.close(fig)
+    
 def clean_directory():
     """清空临时目录及结果目录"""
     dirs = ['result','output']
