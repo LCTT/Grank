@@ -84,14 +84,14 @@ def analyse_repo(owner, repository, data, config):
 
     # 将项目的活跃分数保存到新的 Pickle 中，用于后续的折线图输出
 
-    helpers.series_to_pickle(new_df, repository)
+    helpers.series_to_pickle(new_df, 'activity', owner, repository)
 
     # 对平均分实例进行排序
 
     helpers.set_activity_average(instance, owner, repository, target_score)
 
     # 输出项目的 CSV 数据
-    helpers.export_csv(new_df, "%s" % repository)
+    helpers.export_csv(new_df, 'activity', owner, repository)
 
     # 生成折线图
 
