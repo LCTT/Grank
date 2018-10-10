@@ -26,16 +26,15 @@ def analyse_email(data,config):
     for index,row in df.iterrows():
         df.loc[index,"domain"] = helpers.detect_email_domain(row["author"])
 
-    click.echo('')
-    # click.echo(df['author'].value_counts().drop(labels=common_mail,errors='ignore'))
-    click.echo(df['domain'].value_counts().drop(labels=ignore_mail,errors='ignore'))
-    click.echo('')
+    if config["social"]["askrule"] == '1':
+        click.echo('')
+        click.echo(df['domain'].value_counts().drop(labels=ignore_mail,errors='ignore'))
+        click.echo('')
 
-    if int(config["social"]["askrule"]) == 1:
         new_rule = click.prompt('请输入新的社区化识别的正则规则',default=config["social"]["rule"])
         if new_rule != '':
             if new_rule == '!':
-                config["social"]["askrule"] = 0
+                config["social"]["askrule"] = '0'
                 click.echo('不再询问规则！')
                 click.echo('')
             else:
