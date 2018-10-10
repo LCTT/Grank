@@ -2,8 +2,8 @@ import setuptools
 
 setuptools.setup(
     name="Grank",
-    version="0.0.23",
-    author="Bestony@LCTT",
+    version="0.0.27",
+    author="LCTT",
     author_email="xiqingongzi@gmail.com",
     python_requires=">=3.4",
     description="A Github Project Rank Command Line Tool",
@@ -23,6 +23,12 @@ setuptools.setup(
         'pandas',
         'numpy',
         'matplotlib'
+    ],
+    tests_require=[
+        'pytest',
+        'pytest-cov',
+        'pytest-pep8',
+        'pytest-flakes',
     ],
     entry_points="""
         [console_scripts]

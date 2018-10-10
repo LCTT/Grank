@@ -21,7 +21,7 @@ all_query = """
     ref(qualifiedName: "master"){
       target{
         ... on Commit{
-          history(first:100){
+          history(first:100,since:"%sT00:00:00",until:"%sT23:59:59"){
             pageInfo {
               endCursor
               hasNextPage
@@ -59,7 +59,7 @@ all_query_with_pager = """
     ref(qualifiedName: "master"){
       target{
         ... on Commit{
-          history(first:100,after:"%s"){
+          history(first:100,after:"%s",since:"%sT00:00:00",until:"%sT23:59:59"){
             pageInfo {
               endCursor
               hasNextPage
@@ -106,7 +106,7 @@ commit_query_with_pager = """
     ref(qualifiedName: "master"){
       target{
         ... on Commit{
-          history(first:100,after:"%s"){
+          history(first:100,after:"%s",since:"%sT00:00:00",until:"%sT23:59:59"){
             pageInfo {
               endCursor
               hasNextPage

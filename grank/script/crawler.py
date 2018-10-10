@@ -30,9 +30,8 @@ def fetch_repo_data(owner, repository, config):
     top_number = int(config["rank"]["top"])
     click.echo("第 1 次抓取数据:%s/%s" % (owner, repository))
     # 进行初次查询
-    all_query = query.all_query % (owner, repository)
+    all_query = query.all_query % (owner, repository,start_time,end_time)
     result = helpers.query(all_query, config)
-
     # 处理第一组数据
     if (helpers.has_result(result, "commit")):
         for commit in result["data"]["repository"]["ref"]["target"]["history"]["edges"]:
@@ -55,13 +54,13 @@ def fetch_repo_data(owner, repository, config):
 
         if (helpers.has_next_page(result, "pr") and helpers.has_next_page(result, "commit")):
             next_query = query.all_query_with_pager % (owner, repository, helpers.get_page_cursor(
-                result, "pr"), helpers.get_page_cursor(result, "commit"))
+                result, "pr"), helpers.get_page_cursor(result, "commit"),start_time,end_time)
         elif (helpers.has_next_page(result, "pr")):
             next_query = query.pr_query_with_pager % (
                 owner, repository, helpers.get_page_cursor(result, "pr"))
         elif (helpers.has_next_page(result, "commit")):
             next_query = query.commit_query_with_pager % (
-                owner, repository, helpers.get_page_cursor(result, "commit"))
+                owner, repository, helpers.get_page_cursor(result, "commit"),start_time,end_time)
 
         result = helpers.query(next_query, config)
         fetch_count = fetch_count + 1

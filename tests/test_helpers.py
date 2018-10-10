@@ -1,10 +1,9 @@
-import pandas
 from grank.libs import helpers
-def test_detect_email_dmain():
-    gmail_domain = helpers.detect_email_dmain('test_case@gmail.com')
+def test_detect_email_domain():
+    gmail_domain = helpers.detect_email_domain('test_case@gmail.com')
     assert gmail_domain == '@gmail.com'
 
-    localhost_domain = helpers.detect_email_dmain('localhost')
+    localhost_domain = helpers.detect_email_domain('localhost')
     assert localhost_domain == ''
 
 def test_get_user_type():
