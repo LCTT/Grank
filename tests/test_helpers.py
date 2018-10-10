@@ -1,6 +1,4 @@
 from grank.libs import helpers
-import mock
-from pytest_mock import mocker
 import configparser
 def test_detect_email_domain():
     gmail_domain = helpers.detect_email_domain('test_case@gmail.com')
