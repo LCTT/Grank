@@ -24,16 +24,17 @@
 - [唯品会](https://github.com/vipshop)  
 - [豆瓣](https://github.com/douban) 
 - [大众点评](https://github.com/dianping) 
-- [美团点评](https://github.com/Meituan-Dianping)  
 - [小米](https://github.com/xiaomi) 
 - [美团](https://github.com/meituan) 
-- [蘑菇街](https://github.com/mogujie) 
+  - [美团点评](https://github.com/Meituan-Dianping)  
+- [美丽](https://github.com/meili) 
 - [豌豆荚](https://github.com/CodisLabs) 
 - [当当](https://github.com/dangdangdotcom)  
 - [有赞](https://github.com/youzan)  
 - [深度](https://github.com/linuxdeepin) 
 - [DNSPod](https://github.com/DNSPod) 
 - [新浪微博](https://github.com/weibocom) 
+- [今日头条](https://github.com/bytedance)
 
 （最初参考[来源](https://github.com/jaywcjlove/handbook/blob/master/other/Github-Oraganizations.md)，去除了文档类项目。）
 
