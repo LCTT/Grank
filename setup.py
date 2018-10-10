@@ -24,6 +24,12 @@ setuptools.setup(
         'numpy',
         'matplotlib'
     ],
+    tests_require=[
+        'pytest',
+        'pytest-cov',
+        'pytest-pep8',
+        'pytest-flakes',
+    ],
     entry_points="""
         [console_scripts]
         grank=grank.core:main
