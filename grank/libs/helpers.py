@@ -197,14 +197,14 @@ def add_item_to_pr_array(item, blank_array):
 def export_csv(series, part, owner, repository):
     """导出 Csv 文件"""
     if not os.path.exists('output/' + part + '/' + owner):
-        os.makedirs('output/' + part + '/' + owner)  
+        os.makedirs('output/' + part + '/' + owner)
     series.to_csv("output/" + part + "/" + owner + "/" + "%s.csv" % repository)
 
 
 def export_pickle(df, part, owner, repository):
     """将数据保存到 pickle 中"""
     if not os.path.exists('output/' + part + '/' + owner):
-        os.makedirs('output/' + part + '/' + owner)  
+        os.makedirs('output/' + part + '/' + owner)
     df.to_pickle("output/" + part + "/" + owner + "/" + "%s.pkl" % repository)
 
 def get_activity_average_instance():
@@ -252,7 +252,7 @@ def comsum_owner(owner, config):
     activity_df = pd.DataFrame({},index=pd.date_range(start=start_time, end=end_time, freq="W"))
     social_df = pd.DataFrame({},index=pd.date_range(start=start_time, end=end_time, freq="W"))
 
-    list = os.listdir('output/activity/' + owner) 
+    list = os.listdir('output/activity/' + owner)
     for i in range(0,len(list)):
         path = os.path.join('output/activity/' + owner,list[i])
         if os.path.isfile(path) and os.path.splitext(list[i])[1] == '.pkl' and list[i] != '-ALL-.pkl':
@@ -261,15 +261,15 @@ def comsum_owner(owner, config):
     activity_df["score"] = activity_df.apply(lambda row: math.sqrt(row.pr*row.pr + row.contributor * row.contributor + row.commit*row.commit), axis=1)
     export_csv(activity_df, 'activity', owner, '-ALL-')
     export_pickle(activity_df, 'activity', owner, '-ALL-')
-    
-    list = os.listdir('output/social/' + owner) 
+
+    list = os.listdir('output/social/' + owner)
     for i in range(0,len(list)):
         path = os.path.join('output/social/' + owner,list[i])
         if os.path.isfile(path) and os.path.splitext(list[i])[1] == '.pkl' and list[i] != '-ALL-.pkl':
             social_df = social_df.add(pd.read_pickle("output/social/%s/%s" % (owner,list[i])),fill_value = 0)
 
     social_df["score"] = social_df.apply(lambda row: row.community_member / row.all_member, axis=1)
-    
+
     export_csv(social_df, 'social', owner, '-ALL-')
     export_pickle(social_df, 'social', owner, '-ALL-')
 
@@ -317,8 +317,7 @@ def generate_repository_fig(owner, repository, config):
     all_df = pd.DataFrame(data=[], index=pd.date_range(
         start=start_time, end=end_time, freq="W"))
 
-    if not os.path.exists("output/activity/%s/%s.pkl" % (owner,repository))
-        or not os.path.exists("output/social/%s/%s.pkl" % (owner,repository)):
+    if not os.path.exists("output/activity/%s/%s.pkl" % (owner,repository)) or not os.path.exists("output/social/%s/%s.pkl" % (owner,repository)):
         click.echo("cant read pkl")
         return False
 
@@ -334,7 +333,7 @@ def generate_repository_fig(owner, repository, config):
     ax1.set_ylabel('activity(%.2f)' % all_df['activity'].mean(), color=color)
     ax1.plot(all_df['activity'], color=color)
     ax1.tick_params(axis='y', labelcolor=color)
-    
+
     ax2 = ax1.twinx()
     color = 'tab:blue'
     ax2.set_ylabel('social(%.2f%%)' % all_df['social'].mean(), color=color)
