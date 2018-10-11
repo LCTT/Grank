@@ -72,10 +72,10 @@ def analy(args):
             social.analyse_repo(item["owner"], item["repository"], data, config)
             
             # 生成折线图
-            helpers.generate_repository_fig(config, item['owner'], item['repository'])
+            helpers.generate_repository_fig(item['owner'], item['repository'], config)
 
-        helpers.comsum_owner(config, owner)
-        helpers.generate_owner_fig(config, owner)
+        helpers.comsum_owner(owner, config)
+        helpers.generate_owner_fig(owner, config)
     else:
         owner = args[0]
         repo = args[1]
@@ -83,7 +83,7 @@ def analy(args):
         activity.analyse_repo(owner, repo, data, config)
         social.analyse_email(data,config)
         social.analyse_repo(owner, repo, data, config)
-        helpers.generate_repository_fig(config, owner, repo)
+        helpers.generate_repository_fig(owner, repo, config)
         
     helpers.generate_top_fig(config)
     pass

@@ -244,7 +244,7 @@ def set_social_average(instance, owner, repository, score):
     instance.to_pickle("output/social_average.pkl")
     instance.to_csv("result/social_rank.csv",float_format="%.2f")
 
-def comsum_owner(config,owner):
+def comsum_owner(owner, config):
     start_time = config['time']['start_time']
     end_time = config['time']['end_time']
 
@@ -272,8 +272,8 @@ def comsum_owner(config,owner):
     helpers.export_csv(social_df, 'social', owner, '-ALL-')
     helpers.export_pickle(social_df, 'social', owner, '-ALL-')
 
-def generate_owner_fig(config, owner):
-    generate_repository_fig(config, owner, '-ALL-')
+def generate_owner_fig(owner, config):
+    generate_repository_fig(owner, '-ALL-', config)
 
 def generate_top_fig(config):
     """生成平均值的折线图"""
@@ -304,7 +304,7 @@ def generate_top_fig(config):
     social_fig.savefig("result/social_line.png")
     plt.close(social_fig)
 
-def generate_repository_fig(config, owner, repository):
+def generate_repository_fig(owner, repository, config):
     start_time = config['time']['start_time']
     end_time = config['time']['end_time']
     df = pd.read_pickle("output/activity_average.pkl")
