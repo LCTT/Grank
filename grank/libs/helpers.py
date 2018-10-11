@@ -317,8 +317,7 @@ def generate_repository_fig(owner, repository, config):
     all_df = pd.DataFrame(data=[], index=pd.date_range(
         start=start_time, end=end_time, freq="W"))
 
-    if not os.path.exists("output/activity/%s/%s.pkl" % (owner,repository))
-        or not os.path.exists("output/social/%s/%s.pkl" % (owner,repository)):
+    if not os.path.exists("output/activity/%s/%s.pkl" % (owner,repository)) or not os.path.exists("output/social/%s/%s.pkl" % (owner,repository)):
         click.echo("cant read pkl")
         return False
 
