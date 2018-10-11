@@ -201,7 +201,7 @@ def export_csv(series, part, owner, repository):
     series.to_csv("output/" + part + "/" + owner + "/" + "%s.csv" % repository)
 
 
-def series_to_pickle(df, part, owner, repository):
+def export_pickle(df, part, owner, repository):
     """将数据保存到 pickle 中"""
     if not os.path.exists('output/' + part + '/' + owner):
         os.makedirs('output/' + part + '/' + owner)  
@@ -245,9 +245,12 @@ def set_social_average(instance, owner, repository, score):
     instance.to_csv("result/social_rank.csv",float_format="%.2f")
 
 
-
-def generate_top_fig(start_time, end_time, top_number):
+def generate_top_fig(config):
     """生成平均值的折线图"""
+    start_time = config['time']['start_time']
+    end_time = config['time']['end_time']
+    top_number = int(config['rank']['top'])
+
     df = pd.read_pickle("output/activity_average.pkl")
     activity_df = pd.DataFrame(data=[], index=pd.date_range(
         start=start_time, end=end_time, freq="W"))
@@ -271,7 +274,9 @@ def generate_top_fig(start_time, end_time, top_number):
     social_fig.savefig("result/social_line.png")
     plt.close(social_fig)
 
-def generate_repository_fig(start_time, end_time, owner, repository):
+def generate_repository_fig(config, owner, repository):
+    start_time = config['time']['start_time']
+    end_time = config['time']['end_time']
     df = pd.read_pickle("output/activity_average.pkl")
     all_df = pd.DataFrame(data=[], index=pd.date_range(
         start=start_time, end=end_time, freq="W"))
