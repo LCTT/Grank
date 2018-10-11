@@ -292,8 +292,7 @@ def generate_top_fig(config):
 
     for index, row in df.iterrows():
         if len(activity_df.columns) < top_number:
-            if not os.path.exists("output/activity/%s/%s.pkl" % (row["owner"],row["repos"]))
-                or not os.path.exists("output/social/%s/%s.pkl" % (row["owner"],row["repos"])):
+            if not os.path.exists("output/activity/%s/%s.pkl" % (row["owner"],row["repos"])) or not os.path.exists("output/social/%s/%s.pkl" % (row["owner"],row["repos"])):
                 continue
             activity_df[row["owner"] + "/" + row["repos"]] = pd.read_pickle(
                 "output/activity/%s/%s.pkl" % (row["owner"],row["repos"]))["score"]
