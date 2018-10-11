@@ -2,12 +2,13 @@ import setuptools
 
 setuptools.setup(
     name="Grank",
-    version="0.0.27",
+    version="0.1.0",
     author="LCTT",
     author_email="xiqingongzi@gmail.com",
     python_requires=">=3.4",
     description="A Github Project Rank Command Line Tool",
-    long_description=open('README.rst').read(),
+    long_description=open('readme.md').read(),
+    long_description_content_type="text/markdown",
     url="https://github.com/LCTT/Grank",
     project_urls={
         "Bug Tracker": "https://github.com/LCTT/Grank/issues",
