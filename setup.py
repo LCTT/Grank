@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name="Grank",
-    version="0.1.2",
+    version="0.1.3",
     author="LCTT",
     author_email="xiqingongzi@gmail.com",
     python_requires=">=3.4",

@@ -1,5 +1,8 @@
 # 变更日志
 
+## 0.1.3
+1. Bugfix by @wxy
+
 ## 0.1.2
 
 1. **新特性** 针对 Owner 生成图表。Contributor: @wxy
