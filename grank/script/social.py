@@ -99,7 +99,7 @@ def analyse_repo(owner, repository, data, config):
 
     instance = helpers.get_social_average_instance()
 
-    helpers.series_to_pickle(social_df, 'social', owner, repository)
+    helpers.export_pickle(social_df, 'social', owner, repository)
 
     helpers.set_social_average(
         instance, owner, repository, target_social_score)
@@ -108,4 +108,5 @@ def analyse_repo(owner, repository, data, config):
 
     click.echo("输出成功 %s/%s 的社区化分数为 %.2f%%" %
                (owner, repository, 100 * target_social_score))
-    pass
+    
+    return social_df

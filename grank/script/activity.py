@@ -84,7 +84,7 @@ def analyse_repo(owner, repository, data, config):
 
     # 将项目的活跃分数保存到新的 Pickle 中，用于后续的折线图输出
 
-    helpers.series_to_pickle(new_df, 'activity', owner, repository)
+    helpers.export_pickle(new_df, 'activity', owner, repository)
 
     # 对平均分实例进行排序
 
@@ -96,3 +96,4 @@ def analyse_repo(owner, repository, data, config):
     click.echo("输出成功,%s 旗下的 %s 项目的活跃分数为 %.2f" %
                (owner, repository, target_score))
 
+    return new_df

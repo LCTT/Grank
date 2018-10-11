@@ -2,6 +2,7 @@ import click
 import os
 import sys
 import warnings
+
 warnings.filterwarnings('ignore')
 
 if sys.version_info[0] != 3:
@@ -54,6 +55,7 @@ def analy(args):
     config = helpers.get_config()
     if len(args) == 0:
         click.echo('grank analy owner [repo]')
+        return False
     elif len(args) == 1:
         owner = args[0]
         if helpers.get_user_type(owner) is True:
@@ -63,12 +65,17 @@ def analy(args):
         for item in repository_array["repositoryArray"]:
             if os.path.exists('output/activity/' + item["owner"] + '/' + item["repository"] + ".csv"):
                 continue
+                
             data = crawler.fetch_repo_data(item["owner"], item["repository"], config)
             activity.analyse_repo(item["owner"], item["repository"], data, config)
             social.analyse_email(data,config)
             social.analyse_repo(item["owner"], item["repository"], data, config)
+            
             # 生成折线图
-            helpers.generate_repository_fig(config['time']['start_time'], config['time']['end_time'], item['owner'], item['repository'])
+            helpers.generate_repository_fig(item['owner'], item['repository'], config)
+
+        helpers.comsum_owner(owner, config)
+        helpers.generate_owner_fig(owner, config)
     else:
         owner = args[0]
         repo = args[1]
@@ -76,9 +83,9 @@ def analy(args):
         activity.analyse_repo(owner, repo, data, config)
         social.analyse_email(data,config)
         social.analyse_repo(owner, repo, data, config)
-        helpers.generate_repository_fig(config['time']['start_time'], config['time']['end_time'], owner, repo)
+        helpers.generate_repository_fig(owner, repo, config)
         
-    helpers.generate_top_fig(config['time']['start_time'], config['time']['end_time'], int(config['rank']['top']))        
+    helpers.generate_top_fig(config)
     pass
 
 @main.command()
