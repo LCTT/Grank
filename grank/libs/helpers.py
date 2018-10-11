@@ -254,7 +254,7 @@ def comsum_owner(owner, config):
     list = os.listdir('output/activity') 
     for i in range(0,len(list)):
         path = os.path.join('output/activity',list[i])
-        if os.path.isfile(path) and os.path.splitext(i)[1] == '.pkl':
+        if os.path.isfile(path) and os.path.splitext(i)[1] == '.pkl' and list[i] != '-ALL-.pkl':
             activity_df = activity_df.add(pd.read_pickle("output/activity/%s/%s.pkl" % (item["owner"],item["repository"])),fill_value = 0)
 
     activity_df["score"] = activity_df.apply(lambda row: math.sqrt(row.pr*row.pr + row.contributor * row.contributor + row.commit*row.commit), axis=1)
@@ -264,7 +264,7 @@ def comsum_owner(owner, config):
     list = os.listdir('output/social') 
     for i in range(0,len(list)):
         path = os.path.join('output/social',list[i])
-        if os.path.isfile(path) and os.path.splitext(i)[1] == '.pkl':
+        if os.path.isfile(path) and os.path.splitext(i)[1] == '.pkl' and list[i] != '-ALL-.pkl':
             social_df = social_df.add(pd.read_pickle("output/social/%s/%s.pkl" % (item["owner"],item["repository"])),fill_value = 0)
 
     social_df["score"] = social_df.apply(lambda row: row.community_member / row.all_member, axis=1)
