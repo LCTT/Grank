@@ -7,46 +7,38 @@ import math
 import re
 
 def analyse_email(data,config):
+    if config["social"]["askrule"] != '1':
+        return False
+
     click.echo("========= Email start =========")
     # 邮箱匹配规则
     regex_rule = re.compile('@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?')
     ignore_mail = ['@users.noreply.github.com','']
-    # common mail
-    common_mail = [
-            '@gmail.com','@qq.com',
-            '@163.com','@foxmail.com',
-            '@live.com',
-            '@126.com','@outlook.com',
-            '@yahoo.com',
-            '@aliyun.com','@yeah.net',
-            '@yahoo.co.uk','@googlemail.com'
-            '@hotmail.com','@yandex.ru']
     df = pd.DataFrame(data["commitArray"])
 
     for index,row in df.iterrows():
         df.loc[index,"domain"] = helpers.detect_email_domain(row["author"])
 
-    if config["social"]["askrule"] == '1':
-        click.echo('')
-        click.echo(df['domain'].value_counts().drop(labels=ignore_mail,errors='ignore'))
-        click.echo('')
+    click.echo('')
+    click.echo(df['domain'].value_counts().drop(labels=ignore_mail,errors='ignore'))
+    click.echo('')
 
-        new_rule = click.prompt('请输入新的社区化识别的正则规则',default=config["social"]["rule"])
-        if new_rule != '':
-            if new_rule == '!':
-                config["social"]["askrule"] = '0'
-                click.echo('不再询问规则！')
-                click.echo('')
-            else:
-                config["social"]["rule"] = new_rule
-                click.echo('规则设置完成！')
-                click.echo('')
+    new_rule = click.prompt('请输入新的社区化识别的正则规则：',default=config["social"]["rule"])
+    if new_rule != '':
+        if new_rule == '!':
+            config["social"]["askrule"] = '0'
+            click.echo('不再询问规则！')
+            click.echo('')
+        else:
+            config["social"]["rule"] = new_rule
+            click.echo('规则设置完成！')
+            click.echo('')
     
     pass
 
 def analyse_repo(owner, repository, data, config):
     click.echo("========= Community start =========")
-    click.echo("开始进行社区化分析：%s/%s" % (owner, repository))
+    click.echo("开始社区化分析：%s/%s" % (owner, repository))
     pullRequestArray = data["pullRequestArray"]
     commitArray = data["commitArray"]
 
@@ -106,7 +98,7 @@ def analyse_repo(owner, repository, data, config):
 
     helpers.export_csv(social_df,  'social', owner, repository)
 
-    click.echo("输出成功 %s/%s 的社区化分数为 %.2f%%" %
+    click.echo("%s/%s 的平均社区化程度为 %.2f%%" %
                (owner, repository, 100 * target_social_score))
     
     return social_df
