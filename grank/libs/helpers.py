@@ -6,6 +6,7 @@ import click
 import re
 import pandas as pd
 import matplotlib
+import math
 
 matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
@@ -196,6 +197,7 @@ def add_item_to_pr_array(item, blank_array):
 
 def export_csv(series, part, owner, repository):
     """导出 Csv 文件"""
+    click.echo("导出 output/" + part + "/" + owner + "/" + "%s.csv" % repository)
     if not os.path.exists('output/' + part + '/' + owner):
         os.makedirs('output/' + part + '/' + owner)
     series.to_csv("output/" + part + "/" + owner + "/" + "%s.csv" % repository)
@@ -203,6 +205,7 @@ def export_csv(series, part, owner, repository):
 
 def export_pickle(df, part, owner, repository):
     """将数据保存到 pickle 中"""
+    click.echo("导出 output/" + part + "/" + owner + "/" + "%s.pkl" % repository)
     if not os.path.exists('output/' + part + '/' + owner):
         os.makedirs('output/' + part + '/' + owner)
     df.to_pickle("output/" + part + "/" + owner + "/" + "%s.pkl" % repository)
@@ -245,7 +248,7 @@ def set_social_average(instance, owner, repository, score):
     instance.to_csv("result/social_rank.csv",float_format="%.2f")
 
 def comsum_owner(owner, config):
-    click.echo("生成 %s 数据" % owner)
+    click.echo("生成 %s 汇总数据" % owner)
     start_time = config['time']['start_time']
     end_time = config['time']['end_time']
 
@@ -274,7 +277,7 @@ def comsum_owner(owner, config):
     export_pickle(social_df, 'social', owner, '-ALL-')
 
 def generate_owner_fig(owner, config):
-    click.echo("生成 %s 图表" % owner)
+    click.echo("生成 %s 汇总图表" % owner)
     generate_repository_fig(owner, '-ALL-', config)
 
 def generate_top_fig(config):

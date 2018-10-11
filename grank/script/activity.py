@@ -70,30 +70,25 @@ def analyse_repo(owner, repository, data, config):
     }, index=date_range)
 
     # 计算活跃分数
-
     new_df["score"] = new_df.apply(lambda row: math.sqrt(
         row.pr*row.pr + row.contributor * row.contributor + row.commit*row.commit), axis=1)
 
     # 求活跃分数平均值
-
     target_score = new_df["score"].sum() / len(new_df)
 
     # 获取平均分实例，用于后续排序
-
     instance = helpers.get_activity_average_instance()
 
     # 将项目的活跃分数保存到新的 Pickle 中，用于后续的折线图输出
-
     helpers.export_pickle(new_df, 'activity', owner, repository)
-
-    # 对平均分实例进行排序
-
-    helpers.set_activity_average(instance, owner, repository, target_score)
-
     # 输出项目的 CSV 数据
     helpers.export_csv(new_df, 'activity', owner, repository)
 
-    click.echo("输出成功,%s 旗下的 %s 项目的活跃分数为 %.2f" %
+    # 对平均分实例进行排序
+    helpers.set_activity_average(instance, owner, repository, target_score)
+
+
+    click.echo("%s/%s 的平均活跃分数为 %.2f" %
                (owner, repository, target_score))
 
     return new_df
