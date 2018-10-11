@@ -1,7 +1,4 @@
 import click
-import pandas as pd
-import numpy as np
-import math
 import os
 import sys
 import warnings
@@ -61,34 +58,24 @@ def analy(args):
         return False
     elif len(args) == 1:
         owner = args[0]
-        activity_df = pd.DataFrame({},index=pd.date_range(start=start_time, end=end_time, freq="W"))
-        social_df = pd.DataFrame({},index=pd.date_range(start=start_time, end=end_time, freq="W"))
         if helpers.get_user_type(owner) is True:
             repository_array = crawler.fetch_user_data(owner, config)
         else:
             repository_array = crawler.fetch_organ_data(owner, config)
         for item in repository_array["repositoryArray"]:
             if os.path.exists('output/activity/' + item["owner"] + '/' + item["repository"] + ".csv"):
-                activity_df = activity_df.add(pd.read_pickle("output/activity/%s/%s.pkl" % (item["owner"],item["repository"])),fill_value = 0)
-                social_df = social_df.add(pd.read_pickle("output/social/%s/%s.pkl" % (item["owner"],item["repository"])),fill_value = 0)
                 continue
                 
             data = crawler.fetch_repo_data(item["owner"], item["repository"], config)
-            activity_df = activity_df.add(activity.analyse_repo(item["owner"], item["repository"], data, config),fill_value = 0)
+            activity.analyse_repo(item["owner"], item["repository"], data, config)
             social.analyse_email(data,config)
-            social_df = social_df.add(social.analyse_repo(item["owner"], item["repository"], data, config),fill_value = 0)
+            social.analyse_repo(item["owner"], item["repository"], data, config)
             
             # 生成折线图
             helpers.generate_repository_fig(config, item['owner'], item['repository'])
 
-        activity_df["score"] = activity_df.apply(lambda row: math.sqrt(row.pr*row.pr + row.contributor * row.contributor + row.commit*row.commit), axis=1)
-        social_df["score"] = social_df.apply(lambda row: row.community_member / row.all_member, axis=1)
-        
-        helpers.export_csv(activity_df, 'activity', owner, '-ALL-')
-        helpers.export_csv(social_df, 'social', owner, '-ALL-')
-        helpers.export_pickle(activity_df, 'activity', owner, '-ALL-')
-        helpers.export_pickle(social_df, 'social', owner, '-ALL-')
-        helpers.generate_repository_fig(config, owner, '-ALL-')
+        helpers.comsum_owner(config, owner)
+        helpers.generate_owner_fig(config, owner)
     else:
         owner = args[0]
         repo = args[1]
@@ -98,7 +85,7 @@ def analy(args):
         social.analyse_repo(owner, repo, data, config)
         helpers.generate_repository_fig(config, owner, repo)
         
-    helpers.generate_top_fig(config)        
+    helpers.generate_top_fig(config)
     pass
 
 @main.command()
