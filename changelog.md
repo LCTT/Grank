@@ -1,5 +1,12 @@
 # 变更日志
 
+## 0.1.3
+1. Bugfix by @wxy
+
+## 0.1.2
+
+1. **新特性** 针对 Owner 生成图表。Contributor: @wxy
+
 ## 0.0.28
 
 1. **新特性** 可在交互过程中停止社区化规则询问 #38 #39 Contributor: @wxy
