@@ -245,38 +245,41 @@ def set_social_average(instance, owner, repository, score):
     instance.to_csv("result/social_rank.csv",float_format="%.2f")
 
 def comsum_owner(owner, config):
+    click.echo("生成 %s 数据" % owner)
     start_time = config['time']['start_time']
     end_time = config['time']['end_time']
 
     activity_df = pd.DataFrame({},index=pd.date_range(start=start_time, end=end_time, freq="W"))
     social_df = pd.DataFrame({},index=pd.date_range(start=start_time, end=end_time, freq="W"))
 
-    list = os.listdir('output/activity') 
+    list = os.listdir('output/activity/' + owner) 
     for i in range(0,len(list)):
-        path = os.path.join('output/activity',list[i])
-        if os.path.isfile(path) and os.path.splitext(i)[1] == '.pkl' and list[i] != '-ALL-.pkl':
-            activity_df = activity_df.add(pd.read_pickle("output/activity/%s/%s.pkl" % (item["owner"],item["repository"])),fill_value = 0)
+        path = os.path.join('output/activity/' + owner,list[i])
+        if os.path.isfile(path) and os.path.splitext(list[i])[1] == '.pkl' and list[i] != '-ALL-.pkl':
+            activity_df = activity_df.add(pd.read_pickle("output/activity/%s/%s" % (owner,list[i])),fill_value = 0)
 
     activity_df["score"] = activity_df.apply(lambda row: math.sqrt(row.pr*row.pr + row.contributor * row.contributor + row.commit*row.commit), axis=1)
-    helpers.export_csv(activity_df, 'activity', owner, '-ALL-')
-    helpers.export_pickle(activity_df, 'activity', owner, '-ALL-')
+    export_csv(activity_df, 'activity', owner, '-ALL-')
+    export_pickle(activity_df, 'activity', owner, '-ALL-')
     
-    list = os.listdir('output/social') 
+    list = os.listdir('output/social/' + owner) 
     for i in range(0,len(list)):
-        path = os.path.join('output/social',list[i])
-        if os.path.isfile(path) and os.path.splitext(i)[1] == '.pkl' and list[i] != '-ALL-.pkl':
-            social_df = social_df.add(pd.read_pickle("output/social/%s/%s.pkl" % (item["owner"],item["repository"])),fill_value = 0)
+        path = os.path.join('output/social/' + owner,list[i])
+        if os.path.isfile(path) and os.path.splitext(list[i])[1] == '.pkl' and list[i] != '-ALL-.pkl':
+            social_df = social_df.add(pd.read_pickle("output/social/%s/%s" % (owner,list[i])),fill_value = 0)
 
     social_df["score"] = social_df.apply(lambda row: row.community_member / row.all_member, axis=1)
     
-    helpers.export_csv(social_df, 'social', owner, '-ALL-')
-    helpers.export_pickle(social_df, 'social', owner, '-ALL-')
+    export_csv(social_df, 'social', owner, '-ALL-')
+    export_pickle(social_df, 'social', owner, '-ALL-')
 
 def generate_owner_fig(owner, config):
+    click.echo("生成 %s 图表" % owner)
     generate_repository_fig(owner, '-ALL-', config)
 
 def generate_top_fig(config):
     """生成平均值的折线图"""
+    click.echo("生成 TOP 图表")
     start_time = config['time']['start_time']
     end_time = config['time']['end_time']
     top_number = int(config['rank']['top'])
@@ -289,6 +292,9 @@ def generate_top_fig(config):
 
     for index, row in df.iterrows():
         if len(activity_df.columns) < top_number:
+            if not os.path.exists("output/activity/%s/%s.pkl" % (row["owner"],row["repos"]))
+                or not os.path.exists("output/social/%s/%s.pkl" % (row["owner"],row["repos"])):
+                continue
             activity_df[row["owner"] + "/" + row["repos"]] = pd.read_pickle(
                 "output/activity/%s/%s.pkl" % (row["owner"],row["repos"]))["score"]
             """跟随 activity """
@@ -305,11 +311,17 @@ def generate_top_fig(config):
     plt.close(social_fig)
 
 def generate_repository_fig(owner, repository, config):
+    click.echo("生成 %s/%s 图表" % (owner,repository))
     start_time = config['time']['start_time']
     end_time = config['time']['end_time']
     df = pd.read_pickle("output/activity_average.pkl")
     all_df = pd.DataFrame(data=[], index=pd.date_range(
         start=start_time, end=end_time, freq="W"))
+
+    if not os.path.exists("output/activity/%s/%s.pkl" % (owner,repository))
+        or not os.path.exists("output/social/%s/%s.pkl" % (owner,repository)):
+        click.echo("cant read pkl")
+        return False
 
     all_df['activity'] = pd.read_pickle(
         "output/activity/%s/%s.pkl" % (owner,repository))["score"]
