@@ -1,6 +1,8 @@
 from grank.libs import helpers
 import configparser
 import requests
+import os
+
 def test_detect_email_domain():
     gmail_domain = helpers.detect_email_domain('test_case@gmail.com')
     assert gmail_domain == '@gmail.com'
@@ -118,7 +120,19 @@ def test_has_next_page_fail():
     assert test_organ_next == False
     assert test_user_next == False
 
-def test_get_config():
-    configInstance = helpers.get_config()
-    assert type(configparser.ConfigParser()) == type(configInstance)
+
+def test_get_config(mocker):
+    mocker.patch('builtins.open')
+    helpers.get_config()
+    open.assert_called()
+
+
+def test_check_exist(mocker):
+    mocker.patch('os.path.exists')
+    mocker.patch('os.path.isfile')
+    helpers.check_exist() # @todo:  此处未测试 makedirs
+    os.path.exists.assert_called()
+    os.path.isfile.assert_called()
+
+
 
