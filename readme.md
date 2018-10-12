@@ -2,7 +2,7 @@
 
 [![GitHub forks](https://img.shields.io/github/forks/lctt/grank.svg?style=for-the-badge&label=Fork)](https://github.com/lctt/grank/) [![GitHub stars](https://img.shields.io/github/stars/lctt/grank.svg?style=for-the-badge&label=Stars)](https://github.com/lctt/grank/) [![GitHub tag](https://img.shields.io/github/tag/lctt/grank.svg?style=for-the-badge)](https://github.com/lctt/grank/) [![GitHub contributors](https://img.shields.io/github/contributors/lctt/grank.svg?style=for-the-badge)](https://github.com/lctt/grank/) [![GitHub](https://img.shields.io/github/license/lctt/grank.svg?style=for-the-badge)](https://github.com/lctt/grank/) [![GitHub last commit](https://img.shields.io/github/last-commit/lctt/grank.svg?style=for-the-badge)](https://github.com/lctt/grank/)
 
-
+[![Travis (.com)](https://img.shields.io/travis/com/LCTT/Grank.svg?style=for-the-badge)](https://travis-ci.com/LCTT/Grank)
 [![GitHub issues](https://img.shields.io/github/issues/lctt/grank.svg?style=for-the-badge)](https://github.com/lctt/grank/)
 [![GitHub pull requests](https://img.shields.io/github/issues-pr/lctt/grank.svg?style=for-the-badge)](https://github.com/lctt/grank/)
 
