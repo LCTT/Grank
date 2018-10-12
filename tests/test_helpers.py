@@ -2,6 +2,7 @@ from grank.libs import helpers
 import configparser
 import requests
 import os
+import pandas as pd
 
 def test_detect_email_domain():
     gmail_domain = helpers.detect_email_domain('test_case@gmail.com')
@@ -144,3 +145,45 @@ def test_set_keyword(mocker):
     helpers.set_keyword('mock token')
     open.assert_called()
 
+def test_export_csv(mocker):
+    mocker.patch('os.path.exists')
+    mocker.patch('pandas.Series.to_csv')
+    series = pd.Series()
+    part = '1'
+    owner = 'lctt'
+    repository = 'grank'
+    helpers.export_csv(series, part, owner, repository)
+    os.path.exists.assert_called()
+    pd.Series.to_csv.assert_called()
+
+def test_export_pickle(mocker):
+    mocker.patch('os.path.exists')
+    mocker.patch('pandas.DataFrame.to_csv')
+    df = pd.DataFrame()
+    part = '1'
+    owner = 'lctt'
+    repository = 'grank'
+    helpers.export_csv(df, part, owner, repository)
+    os.path.exists.assert_called()
+    pd.DataFrame.to_csv.assert_called()
+
+def test_get_activity_average_instance(mocker):
+    mocker.patch('os.path.isfile')
+    mocker.patch('pandas.read_pickle')
+    helpers.get_activity_average_instance()
+    os.path.isfile.assert_called()
+    pd.read_pickle.assert_called()
+
+def test_get_social_average_instance(mocker):
+    mocker.patch('os.path.isfile')
+    mocker.patch('pandas.read_pickle')
+    helpers.get_social_average_instance()
+    os.path.isfile.assert_called()
+    pd.read_pickle.assert_called()
+
+def test_clean_directory(mocker):
+    mocker.patch('os.path.exists')
+    mocker.patch('os.listdir')
+    helpers.clean_directory()
+    os.path.exists.assert_called()
+    os.listdir.assert_called()
