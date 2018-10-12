@@ -1,5 +1,6 @@
 from grank.libs import helpers
 import configparser
+import requests
 def test_detect_email_domain():
     gmail_domain = helpers.detect_email_domain('test_case@gmail.com')
     assert gmail_domain == '@gmail.com'
@@ -7,11 +8,10 @@ def test_detect_email_domain():
     localhost_domain = helpers.detect_email_domain('localhost')
     assert localhost_domain == ''
 
-def test_get_user_type():
-    test_user = helpers.get_user_type('bestony')
-    assert test_user == True
-    test_organ = helpers.get_user_type('lctt')
-    assert test_organ == False
+def test_get_user_type(mocker):
+    mocker.patch('requests.get')
+    helpers.get_user_type('bestony')
+    requests.get.assert_called()
 
 def test_is_corp():
     configInstance = configparser.ConfigParser()
