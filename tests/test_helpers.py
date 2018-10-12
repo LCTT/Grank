@@ -138,3 +138,9 @@ def test_set_user_token(mocker):
     mocker.patch('builtins.open')
     helpers.set_user_token('mock token')
     open.assert_called()
+
+def test_set_keyword(mocker):
+    mocker.patch('builtins.open')
+    helpers.set_keyword('mock token')
+    open.assert_called()
+
