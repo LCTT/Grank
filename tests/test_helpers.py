@@ -134,5 +134,7 @@ def test_check_exist(mocker):
     os.path.exists.assert_called()
     os.path.isfile.assert_called()
 
-
-
+def test_set_user_token(mocker):
+    mocker.patch('builtins.open')
+    helpers.set_user_token('mock token')
+    open.assert_called()
