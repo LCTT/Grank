@@ -1,0 +1,29 @@
+{
+  "projectName": "Grank",
+  "projectOwner": "LCTT",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": true,
+  "contributors": [
+    {
+      "login": "bestony",
+      "name": "Bestony",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/13283837?v=4",
+      "profile": "https://www.ixiqin.com/",
+      "contributions": [
+        "code",
+        "doc",
+        "eventOrganizing",
+        "example",
+        "platform",
+        "review",
+        "test",
+        "tool"
+      ]
+    }
+  ]
+}
