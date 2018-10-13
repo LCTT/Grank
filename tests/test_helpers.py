@@ -187,3 +187,8 @@ def test_clean_directory(mocker):
     helpers.clean_directory()
     os.path.exists.assert_called()
     os.listdir.assert_called()
+
+def test_get_config_instance():
+    config_temp = configparser.ConfigParser()
+    config = helpers.get_config_instance()
+    assert type(config) == type(config_temp)
