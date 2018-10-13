@@ -44,23 +44,28 @@ def get_config():
     """读取配置文件并返回对应实例"""
     configInstance = configparser.ConfigParser()
     if not check_exist():
-        configInstance = configparser.ConfigParser()
-        configInstance["login"] = {}
-        configInstance["login"]["token"] = ''
-        configInstance["social"] = {}
-        configInstance["social"]["rule"] = 'corp|inc'
-        configInstance["time"] = {}
-        configInstance["time"]["start_time"] = '2017-01-01'
-        configInstance["time"]["end_time"] = datetime.date.today().strftime(
-            '%Y-%m-%d')  # 使用今天的日期
-        configInstance["rank"] = {}
-        configInstance["rank"]["top"] = '3'  # 默认制作前三名的综合图像
+        configInstance = get_config_instance()
         with open('grank.ini', 'w') as configfile:
             configInstance.write(configfile)
     configInstance.read('grank.ini')
     return configInstance
     pass
 
+def get_config_instance(token=None, rule=None, start=None, stop=None, top=None, askrule=None):
+    configInstance = configparser.ConfigParser()
+    configInstance["login"] = {}
+    configInstance["login"]["token"] = token if token is not None else ''
+    configInstance["social"] = {}
+    configInstance["social"]["askrule"] = askrule if askrule is not None else '1'
+    configInstance["social"]["rule"] = rule if rule is not None else 'corp|inc'
+    configInstance["time"] = {}
+    configInstance["time"]["start_time"] = start if start is not None else '2017-01-01'
+    configInstance["time"]["end_time"] = stop if stop is not None else datetime.date.today().strftime(
+            '%Y-%m-%d')  # 使用今天的日期
+    configInstance["rank"] = {}
+    configInstance["rank"]["top"] = top if top is not None else '3'# 默认制作前三名的综合图像
+    return configInstance
+    pass
 
 def set_user_token(token):
     """向配置文件写入用户 Token"""

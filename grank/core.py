@@ -2,9 +2,8 @@ import click
 import os
 import sys
 import warnings
-
 warnings.filterwarnings('ignore')
-
+config = None # 配置实例
 if sys.version_info[0] != 3:
     """设置 Python 3 的判断如果不是 Python 3 则退出"""
     print("This script requires Python 3")
@@ -14,10 +13,19 @@ from .libs import helpers
 from .libs import query
 from .script import activity, crawler, social
 
-
 @click.group()
-def main():
+@click.option('--token',help='Your github token')
+@click.option('--start',help='Start time: yyyy-mm-dd')
+@click.option('--stop',help='Stop time: yyyy-mm-dd')
+@click.option('--askrule',help='Ask rule: 1-Yes 0-No')
+@click.option('--rule',help='rule: corp|inc')
+def main(token,start,stop,askrule,rule):
     """Grank Command"""
+    global config
+    if (token or start or stop or askrule or rule):
+        config = helpers.get_config_instance(token=token,start=start,stop=stop,askrule=askrule, rule=rule)
+    else:
+        config = None
     pass
 
 
@@ -52,7 +60,9 @@ def checklogin():
 @click.argument('args', nargs=-1)
 def analy(args):
     """Analyse a Github User or Organization"""
-    config = helpers.get_config()
+    global config
+    if config is None:
+        config = helpers.get_config()
     if len(args) == 0:
         click.echo('grank analy owner [repo]')
         return False
