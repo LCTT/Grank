@@ -1,7 +1,7 @@
 # Grank -  Github 项目活跃度分析工具
 [![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors)
 
-[![GitHub forks](https://img.shields.io/github/forks/lctt/grank.svg?style=flat-square&label=Fork)](https://github.com/lctt/grank/) [![GitHub stars](https://img.shields.io/github/stars/lctt/grank.svg?style=flat-square&label=Stars)](https://github.com/lctt/grank/) [![GitHub tag](https://img.shields.io/github/tag/lctt/grank.svg?style=flat-square)](https://github.com/lctt/grank/) [![GitHub](https://img.shields.io/github/license/lctt/grank.svg?style=flat-square)](https://github.com/lctt/grank/) [![GitHub last commit](https://img.shields.io/github/last-commit/lctt/grank.svg?style=flat-square)](https://github.com/lctt/grank/)
+[![GitHub tag](https://img.shields.io/github/tag/lctt/grank.svg?style=flat-square)](https://github.com/lctt/grank/) [![GitHub](https://img.shields.io/github/license/lctt/grank.svg?style=flat-square)](https://github.com/lctt/grank/) [![GitHub last commit](https://img.shields.io/github/last-commit/lctt/grank.svg?style=flat-square)](https://github.com/lctt/grank/)
 
 [![Travis (.com)](https://img.shields.io/travis/com/LCTT/Grank.svg?style=flat-square)](https://travis-ci.com/LCTT/Grank)
 [![GitHub issues](https://img.shields.io/github/issues/lctt/grank.svg?style=flat-square)](https://github.com/lctt/grank/)
