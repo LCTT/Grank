@@ -30,6 +30,7 @@ setuptools.setup(
         'pytest-cov',
         'pytest-pep8',
         'pytest-flakes',
+        'pytest-mock'
     ],
     entry_points="""
         [console_scripts]
@@ -38,4 +39,5 @@ setuptools.setup(
     classifiers=[
         "Programming Language :: Python :: 3",
     ],
+
 )
