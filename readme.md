@@ -50,6 +50,7 @@
 3. 使用 `grank login` 设置 Token
 4. 使用 `grank config` 设置社区化企业关键词
 5. 使用 `grank analy <owner> [<repository>]` 来分析特定用户/组织和项目，比如 `grank analy lctt grank`
+6. 使用命令行模式操作，如 `grank --token=XXXX --start=2018-01-01 --stop=2018-05-21 --askrule=0 --rule=inc analy <owner> <repository>` 其中 token 必须指定，其他可以使用缺省设置
 
 ## 命令列表
 
