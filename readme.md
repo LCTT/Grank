@@ -1,15 +1,16 @@
 # Grank -  Github 项目活跃度分析工具
+[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors)
 
-[![GitHub forks](https://img.shields.io/github/forks/lctt/grank.svg?style=for-the-badge&label=Fork)](https://github.com/lctt/grank/) [![GitHub stars](https://img.shields.io/github/stars/lctt/grank.svg?style=for-the-badge&label=Stars)](https://github.com/lctt/grank/) [![GitHub tag](https://img.shields.io/github/tag/lctt/grank.svg?style=for-the-badge)](https://github.com/lctt/grank/) [![GitHub contributors](https://img.shields.io/github/contributors/lctt/grank.svg?style=for-the-badge)](https://github.com/lctt/grank/) [![GitHub](https://img.shields.io/github/license/lctt/grank.svg?style=for-the-badge)](https://github.com/lctt/grank/) [![GitHub last commit](https://img.shields.io/github/last-commit/lctt/grank.svg?style=for-the-badge)](https://github.com/lctt/grank/)
+[![GitHub forks](https://img.shields.io/github/forks/lctt/grank.svg?style=flat-square&label=Fork)](https://github.com/lctt/grank/) [![GitHub stars](https://img.shields.io/github/stars/lctt/grank.svg?style=flat-square&label=Stars)](https://github.com/lctt/grank/) [![GitHub tag](https://img.shields.io/github/tag/lctt/grank.svg?style=flat-square)](https://github.com/lctt/grank/) [![GitHub](https://img.shields.io/github/license/lctt/grank.svg?style=flat-square)](https://github.com/lctt/grank/) [![GitHub last commit](https://img.shields.io/github/last-commit/lctt/grank.svg?style=flat-square)](https://github.com/lctt/grank/)
 
-[![Travis (.com)](https://img.shields.io/travis/com/LCTT/Grank.svg?style=for-the-badge)](https://travis-ci.com/LCTT/Grank)
-[![GitHub issues](https://img.shields.io/github/issues/lctt/grank.svg?style=for-the-badge)](https://github.com/lctt/grank/)
-[![GitHub pull requests](https://img.shields.io/github/issues-pr/lctt/grank.svg?style=for-the-badge)](https://github.com/lctt/grank/)
+[![Travis (.com)](https://img.shields.io/travis/com/LCTT/Grank.svg?style=flat-square)](https://travis-ci.com/LCTT/Grank)
+[![GitHub issues](https://img.shields.io/github/issues/lctt/grank.svg?style=flat-square)](https://github.com/lctt/grank/)
+[![GitHub pull requests](https://img.shields.io/github/issues-pr/lctt/grank.svg?style=flat-square)](https://github.com/lctt/grank/)
 
 
-[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/grank.svg?style=for-the-badge)](https://pypi.org/project/Grank/)
-[![PyPI](https://img.shields.io/pypi/v/grank.svg?style=for-the-badge)](https://pypi.org/project/Grank/)
-[![PyPI - Format](https://img.shields.io/pypi/format/grank.svg?style=for-the-badge)](https://pypi.org/project/Grank/)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/grank.svg?style=flat-square)](https://pypi.org/project/Grank/)
+[![PyPI](https://img.shields.io/pypi/v/grank.svg?style=flat-square)](https://pypi.org/project/Grank/)
+[![PyPI - Format](https://img.shields.io/pypi/format/grank.svg?style=flat-square)](https://pypi.org/project/Grank/)
 
 
 ## 特性
@@ -85,3 +86,15 @@ top = 3 # 绘图时绘制折线的项目数量
 ## 开源协议
 
 [GPL-3.0](LICENSE)
+
+## Contributors
+
+Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds/all-contributors#emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore -->
+| [<img src="https://avatars1.githubusercontent.com/u/13283837?v=4" width="100px;"/><br /><sub><b>Bestony</b></sub>](https://www.ixiqin.com/)<br />[💻](https://github.com/LCTT/Grank/commits?author=bestony "Code") [📖](https://github.com/LCTT/Grank/commits?author=bestony "Documentation") [💡](#example-bestony "Examples") [📦](#platform-bestony "Packaging/porting to new platform") [👀](#review-bestony "Reviewed Pull Requests") [⚠️](https://github.com/LCTT/Grank/commits?author=bestony "Tests") [🔧](#tool-bestony "Tools") | [<img src="https://avatars0.githubusercontent.com/u/128338?v=4" width="100px;"/><br /><sub><b>Xingyu.Wang</b></sub>](http://wxy.github.io/)<br />[💬](#question-wxy "Answering Questions") [🐛](https://github.com/LCTT/Grank/issues?q=author%3Awxy "Bug reports") [💻](https://github.com/LCTT/Grank/commits?author=wxy "Code") [👀](#review-wxy "Reviewed Pull Requests") [📢](#talk-wxy "Talks") | [<img src="https://avatars0.githubusercontent.com/u/218644?v=4" width="100px;"/><br /><sub><b>LuMing</b></sub>](https://github.com/luming)<br />[💻](https://github.com/LCTT/Grank/commits?author=luming "Code") [⚠️](https://github.com/LCTT/Grank/commits?author=luming "Tests") |
+| :---: | :---: | :---: |
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/kentcdodds/all-contributors) specification. Contributions of any kind welcome!
