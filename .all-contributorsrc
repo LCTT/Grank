@@ -24,6 +24,20 @@
         "test",
         "tool"
       ]
+    },
+    {
+      "login": "wxy",
+      "name": "Xingyu.Wang",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/128338?v=4",
+      "profile": "http://wxy.github.io/",
+      "contributions": [
+        "question",
+        "blog",
+        "bug",
+        "code",
+        "review",
+        "talk"
+      ]
     }
   ]
 }
