@@ -21,19 +21,16 @@
 
 **多项目活跃度**
 
-![](https://postimg.aliavv.com/newmbp/4g3wx.png)
+![](https://postimg.aliavv.com/newmbp/3xexn.jpg)
 
 **多项目社区化**
 
-![](https://postimg.aliavv.com/newmbp/i5ni0.png)
+![](https://postimg.aliavv.com/newmbp/f2fce.jpg)
 
 **单项目社区化及活跃度**
 
-![](https://postimg.aliavv.com/newmbp/wpoyf.png)
+![](https://postimg.aliavv.com/newmbp/ebrrr.jpg)
 
-## 样例排行榜
-
-![](https://postimg.aliavv.com/newmbp/emr57.jpg)
 
 ## 安装需求
 
@@ -45,7 +42,7 @@
 2. 获取 Github 的 [Personal Access Token](https://github.com/settings/tokens)
 3. 使用 `grank login` 设置 Token
 4. 使用 `grank config` 设置社区化企业关键词
-5. 使用 `grank analy <owner> [<repository>]` 来分析特定用户/组织和项目，比如 `grank analy lctt grank`
+5. 使用 `grank analy <owner> [<repository>]` 来分析特定用户/组织和项目，比如 `grank analy lctt grank`,分析结果可以在执行命令目录的 result 目录中找到。
 6. 使用命令行模式操作，如 `grank --token=XXXX --start=2018-01-01 --stop=2018-05-21 --askrule=0 --rule=inc analy <owner> <repository>` 其中 token 必须指定，其他可以使用缺省设置
 
 ## 命令列表
