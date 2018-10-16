@@ -363,11 +363,12 @@ def clean_directory():
     for dir in dirs:
         if not os.path.exists(dir):
             continue
-        for file in os.listdir(dir):
-            if os.path.splitext(file)[1] in feature:
-                delete.append(dir + '/' + file)
-                click.echo(dir+'/'+file)
-                exist = True
+        for dirpath,dirnames,filenames in os.walk(dir):
+            for file in filenames:
+                if os.path.splitext(file)[1] in feature:
+                    delete.append(dirpath + '/' + file)
+                    click.echo(dirpath+'/'+file)
+                    exist = True
     if not exist:
     	click.echo("Workspace is empty now!")
     else:
