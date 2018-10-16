@@ -183,10 +183,10 @@ def test_get_social_average_instance(mocker):
 
 def test_clean_directory(mocker):
     mocker.patch('os.path.exists')
-    mocker.patch('os.listdir')
+    mocker.patch('os.walk')
     helpers.clean_directory()
     os.path.exists.assert_called()
-    os.listdir.assert_called()
+    os.walk.assert_called()
 
 def test_get_config_instance():
     config_temp = configparser.ConfigParser()
