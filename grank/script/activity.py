@@ -6,8 +6,8 @@ import math
 
 
 def analyse_repo(owner, repository, data, config):
+    click.echo("开始活跃度分析：%s/%s" % (owner, repository))
     """查询 Repo 数据"""
-    click.echo("========= Activity start =========")
     pullRequestArray = data["pullRequestArray"]
     commitArray = data["commitArray"]
 
@@ -18,7 +18,7 @@ def analyse_repo(owner, repository, data, config):
     date_series = pd.Series(
         np.zeros((len(date_range),), dtype=int), index=date_range)
 
-    click.echo("分析 PR")
+    click.echo("分析 PR", nl=False)
     pr_frame = pd.DataFrame(pullRequestArray)
     if not pr_frame.empty:
         pr_frame = pr_frame[pr_frame.date != "未标注时间"]
@@ -26,7 +26,7 @@ def analyse_repo(owner, repository, data, config):
         pr_dstList = pr_frame.set_index('date').resample('W')['times'].sum()
         pr_dstList = pr_dstList.loc[start_time:end_time]
 
-    click.echo("分析 Commit")
+    click.echo(" Commit", nl=False)
 
     commit_frame = pd.DataFrame(commitArray)
     commit_frame = commit_frame[commit_frame.date != "未标注时间"]
@@ -35,7 +35,7 @@ def analyse_repo(owner, repository, data, config):
         'date').resample('W')['times'].sum()
     commit_dstList = commit_dstList.loc[start_time:end_time]
 
-    click.echo("分析 Contributor")
+    click.echo(" Contributor")
     contributor_frame = pd.DataFrame(commitArray)
     contributor_frame = contributor_frame[contributor_frame.date != "未标注时间"]
     contributor_frame["date"] = pd.to_datetime(contributor_frame['date'])
