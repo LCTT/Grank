@@ -7,7 +7,6 @@ import click
 
 
 def fetch_repo_data(owner, repository, config):
-    click.echo("========= Crawler start =========")
     # 定义空白数组
     commitArray = []
     pullRequestArray = []
@@ -28,7 +27,7 @@ def fetch_repo_data(owner, repository, config):
     start_time = config["time"]["start_time"]
     end_time = config["time"]["end_time"]
     top_number = int(config["rank"]["top"])
-    click.echo("第 1 次抓取数据:%s/%s" % (owner, repository))
+    click.echo("抓取数据：+", nl=False)
     # 进行初次查询
     all_query = query.all_query % (owner, repository,start_time,end_time)
     result = helpers.query(all_query, config)
@@ -41,9 +40,9 @@ def fetch_repo_data(owner, repository, config):
     if (helpers.has_result(result, "pr")):
         for pullRequest in result["data"]["repository"]["pullRequests"]["nodes"]:
             helpers.add_item_to_pr_array(pullRequest, pullRequestArray)
-    fetch_count = 2
+    
     while helpers.has_next_page(result, "commit") or helpers.has_next_page(result, "issue") or helpers.has_next_page(result, "pr"):
-        click.echo("第 %d 次抓取数据:%s/%s" % (fetch_count,owner, repository))
+        click.echo("+", nl=False)
         if (helpers.has_result(result, "commit")):
             for commit in result["data"]["repository"]["ref"]["target"]["history"]["edges"]:
                 helpers.add_item_to_commit_array(commit, commitArray)
@@ -63,7 +62,7 @@ def fetch_repo_data(owner, repository, config):
                 owner, repository, helpers.get_page_cursor(result, "commit"),start_time,end_time)
 
         result = helpers.query(next_query, config)
-        fetch_count = fetch_count + 1
+    click.echo('')
     return {
         "pullRequestArray": pullRequestArray,
         "commitArray": commitArray
@@ -72,7 +71,7 @@ def fetch_repo_data(owner, repository, config):
 
 def fetch_user_data(user, config):
     repositoryArray = []
-    click.echo("开始抓取用户数据:%s" % user)
+    click.echo("抓取用户数据：+", nl=False)
     all_query = query.user_all_query % user
     result = helpers.query(all_query, config)
 
@@ -83,19 +82,18 @@ def fetch_user_data(user, config):
                     {"owner": user, "repository": repo["name"]})
 
     while(helpers.has_next_page(result, 'user_repository')):
-        click.echo("继续抓取用户数据: %s" % user)
+        click.echo("+", nl=False)
         if (helpers.has_result(result, 'user_repository')):
             for repo in result["data"]["user"]["repositories"]["nodes"]:
                 if repo['stargazers']["totalCount"] > 100:
                     repositoryArray.append(
                         {"owner": user, "repository": repo["name"]})
 
-        click.echo("继续抓取用户数据: %s" % user)
         next_query = query.user_all_query_with_pager % (
             user, helpers.get_page_cursor(result, "user_repository"))
         result = helpers.query(next_query, config)
 
-
+    click.echo('')
     return {
         "repositoryArray": repositoryArray
     }
@@ -103,7 +101,7 @@ def fetch_user_data(user, config):
 
 def fetch_organ_data(organization, config):
     repositoryArray = []
-    click.echo("开始抓取组织数据: %s" % organization)
+    click.echo("抓取组织数据：+", nl=False)
     all_query = query.organ_all_query % organization
     result = helpers.query(all_query, config)
     if (helpers.has_result(result, 'repository')):
@@ -113,18 +111,18 @@ def fetch_organ_data(organization, config):
                     {"owner": organization, "repository": repo["name"]})
 
     while(helpers.has_next_page(result, 'repository')):
-        click.echo("继续抓取组织数据: %s" % organization)
+        click.echo("+", nl=False)
         if (helpers.has_result(result, 'repository')):
             for repo in result["data"]["organization"]["repositories"]["nodes"]:
                 if repo['stargazers']["totalCount"] > 100:
                     repositoryArray.append(
                         {"owner": organization, "repository": repo["name"]})
 
-        click.echo("继续抓取组织数据: %s" % organization)
         next_query = query.organ_all_query_with_pager % (
             organization, helpers.get_page_cursor(result, "repository"))
         result = helpers.query(next_query, config)
 
+    click.echo('')
     return {
         "repositoryArray": repositoryArray
     }

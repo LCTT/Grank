@@ -68,12 +68,23 @@ def analy(args):
         return False
     elif len(args) == 1:
         owner = args[0]
+        click.echo('================================')
+        click.echo('分析 ' + owner)
+        click.echo('================================')
+        
         if helpers.get_user_type(owner) is True:
             repository_array = crawler.fetch_user_data(owner, config)
         else:
             repository_array = crawler.fetch_organ_data(owner, config)
+        click.echo('共计 %d 个项目' % len(repository_array["repositoryArray"]))
+        i = 0
         for item in repository_array["repositoryArray"]:
+            i += 1
+            click.echo('================================')
+            click.echo('[%d/%d] %s/%s ' % (i, len(repository_array["repositoryArray"]), item["owner"], item["repository"]))
+            click.echo('================================')
             if os.path.exists('output/activity/' + item["owner"] + '/' + item["repository"] + ".csv"):
+                click.echo('跳过')
                 continue
                 
             data = crawler.fetch_repo_data(item["owner"], item["repository"], config)
@@ -84,11 +95,15 @@ def analy(args):
             # 生成折线图
             helpers.generate_repository_fig(item['owner'], item['repository'], config)
 
-        helpers.comsum_owner(owner, config)
-        helpers.generate_owner_fig(owner, config)
+        if len(repository_array["repositoryArray"]) > 0:
+            helpers.comsum_owner(owner, config)
+            helpers.generate_owner_fig(owner, config)
     else:
         owner = args[0]
         repo = args[1]
+        click.echo('================================')
+        click.echo('分析 %s/%s' % (owner, repo))
+        click.echo('================================')
         data = crawler.fetch_repo_data(owner, repo, config)
         activity.analyse_repo(owner, repo, data, config)
         social.analyse_email(data,config)
