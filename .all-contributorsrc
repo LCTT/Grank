@@ -1,0 +1,52 @@
+{
+  "projectName": "Grank",
+  "projectOwner": "LCTT",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": true,
+  "contributors": [
+    {
+      "login": "bestony",
+      "name": "Bestony",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/13283837?v=4",
+      "profile": "https://www.ixiqin.com/",
+      "contributions": [
+        "code",
+        "doc",
+        "example",
+        "platform",
+        "review",
+        "test",
+        "tool"
+      ]
+    },
+    {
+      "login": "wxy",
+      "name": "Xingyu.Wang",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/128338?v=4",
+      "profile": "http://wxy.github.io/",
+      "contributions": [
+        "question",
+        "bug",
+        "code",
+        "review",
+        "talk"
+      ]
+    },
+    {
+      "login": "LuuMing",
+      "name": "LuMing",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/23754818?v=4",
+      "profile": "http://LuuMing.github.io",
+      "contributions": [
+        "code",
+        "doc",
+        "test"
+      ]
+    }
+  ]
+}

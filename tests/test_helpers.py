@@ -1,5 +1,9 @@
 from grank.libs import helpers
 import configparser
+import requests
+import os
+import pandas as pd
+
 def test_detect_email_domain():
     gmail_domain = helpers.detect_email_domain('test_case@gmail.com')
     assert gmail_domain == '@gmail.com'
@@ -7,11 +11,10 @@ def test_detect_email_domain():
     localhost_domain = helpers.detect_email_domain('localhost')
     assert localhost_domain == ''
 
-def test_get_user_type():
-    test_user = helpers.get_user_type('bestony')
-    assert test_user == True
-    test_organ = helpers.get_user_type('lctt')
-    assert test_organ == False
+def test_get_user_type(mocker):
+    mocker.patch('requests.get')
+    helpers.get_user_type('bestony')
+    requests.get.assert_called()
 
 def test_is_corp():
     configInstance = configparser.ConfigParser()
@@ -118,7 +121,74 @@ def test_has_next_page_fail():
     assert test_organ_next == False
     assert test_user_next == False
 
-def test_get_config():
-    configInstance = helpers.get_config()
-    assert type(configparser.ConfigParser()) == type(configInstance)
 
+def test_get_config(mocker):
+    mocker.patch('builtins.open')
+    helpers.get_config()
+    open.assert_called()
+
+
+def test_check_exist(mocker):
+    mocker.patch('os.path.exists')
+    mocker.patch('os.path.isfile')
+    helpers.check_exist() # @todo:  此处未测试 makedirs
+    os.path.exists.assert_called()
+    os.path.isfile.assert_called()
+
+def test_set_user_token(mocker):
+    mocker.patch('builtins.open')
+    helpers.set_user_token('mock token')
+    open.assert_called()
+
+def test_set_keyword(mocker):
+    mocker.patch('builtins.open')
+    helpers.set_keyword('mock token')
+    open.assert_called()
+
+def test_export_csv(mocker):
+    mocker.patch('os.path.exists')
+    mocker.patch('pandas.Series.to_csv')
+    series = pd.Series()
+    part = '1'
+    owner = 'lctt'
+    repository = 'grank'
+    helpers.export_csv(series, part, owner, repository)
+    os.path.exists.assert_called()
+    pd.Series.to_csv.assert_called()
+
+def test_export_pickle(mocker):
+    mocker.patch('os.path.exists')
+    mocker.patch('pandas.DataFrame.to_csv')
+    df = pd.DataFrame()
+    part = '1'
+    owner = 'lctt'
+    repository = 'grank'
+    helpers.export_csv(df, part, owner, repository)
+    os.path.exists.assert_called()
+    pd.DataFrame.to_csv.assert_called()
+
+def test_get_activity_average_instance(mocker):
+    mocker.patch('os.path.isfile')
+    mocker.patch('pandas.read_pickle')
+    helpers.get_activity_average_instance()
+    os.path.isfile.assert_called()
+    pd.read_pickle.assert_called()
+
+def test_get_social_average_instance(mocker):
+    mocker.patch('os.path.isfile')
+    mocker.patch('pandas.read_pickle')
+    helpers.get_social_average_instance()
+    os.path.isfile.assert_called()
+    pd.read_pickle.assert_called()
+
+def test_clean_directory(mocker):
+    mocker.patch('os.path.exists')
+    mocker.patch('os.walk')
+    helpers.clean_directory()
+    os.path.exists.assert_called()
+    os.walk.assert_called()
+
+def test_get_config_instance():
+    config_temp = configparser.ConfigParser()
+    config = helpers.get_config_instance()
+    assert type(config) == type(config_temp)

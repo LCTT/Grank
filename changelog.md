@@ -1,5 +1,9 @@
 # 变更日志
 
+## 0.1.4
+
+1. **新特性** 加入命令行模式的支持。 Contributor: @LuuMing
+
 ## 0.1.3
 1. Bugfix by @wxy
 

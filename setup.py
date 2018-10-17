@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name="Grank",
-    version="0.1.3",
+    version="0.1.4",
     author="LCTT",
     author_email="xiqingongzi@gmail.com",
     python_requires=">=3.4",
@@ -30,6 +30,7 @@ setuptools.setup(
         'pytest-cov',
         'pytest-pep8',
         'pytest-flakes',
+        'pytest-mock'
     ],
     entry_points="""
         [console_scripts]
@@ -38,4 +39,5 @@ setuptools.setup(
     classifiers=[
         "Programming Language :: Python :: 3",
     ],
+
 )
