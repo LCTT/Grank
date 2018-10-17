@@ -35,6 +35,8 @@
 - [DNSPod](https://github.com/DNSPod) 
 - [新浪微博](https://github.com/weibocom) 
 - [今日头条](https://github.com/bytedance)
+- [滴滴出行](https://github.com/didi)
+- [eBay](https://github.com/eBay)
 
 （最初参考[来源](https://github.com/jaywcjlove/handbook/blob/master/other/Github-Oraganizations.md)，去除了文档类项目。）
 
