@@ -10,7 +10,7 @@ def analyse_email(data,config):
     if config["social"]["askrule"] != '1':
         return False
 
-    click.echo("========= Email start =========")
+    click.echo("邮件域分布：")
     # 邮箱匹配规则
     regex_rule = re.compile('@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?')
     ignore_mail = ['@users.noreply.github.com','']
@@ -19,25 +19,20 @@ def analyse_email(data,config):
     for index,row in df.iterrows():
         df.loc[index,"domain"] = helpers.detect_email_domain(row["author"])
 
-    click.echo('')
     click.echo(df['domain'].value_counts().drop(labels=ignore_mail,errors='ignore'))
-    click.echo('')
 
     new_rule = click.prompt('请输入新的社区化识别的正则规则：',default=config["social"]["rule"])
     if new_rule != '':
         if new_rule == '!':
             config["social"]["askrule"] = '0'
             click.echo('不再询问规则！')
-            click.echo('')
         else:
             config["social"]["rule"] = new_rule
             click.echo('规则设置完成！')
-            click.echo('')
     
     pass
 
 def analyse_repo(owner, repository, data, config):
-    click.echo("========= Community start =========")
     click.echo("开始社区化分析：%s/%s" % (owner, repository))
     pullRequestArray = data["pullRequestArray"]
     commitArray = data["commitArray"]

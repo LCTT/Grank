@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 def query(query, config):
     """封装后的 GraphQL 请求"""
     if config["login"]["token"] == '':
-        print("You Need Login First, Run `grank login`")
+        click.echo("You Need Login First, Run `grank login`")
         exit()
     token = config["login"]["token"]
     headers = {"Authorization": "Bearer %s" % token}
@@ -202,7 +202,7 @@ def add_item_to_pr_array(item, blank_array):
 
 def export_csv(series, part, owner, repository):
     """导出 Csv 文件"""
-    click.echo("导出 output/" + part + "/" + owner + "/" + "%s.csv" % repository)
+    #click.echo("导出 output/" + part + "/" + owner + "/" + "%s.csv" % repository)
     if not os.path.exists('output/' + part + '/' + owner):
         os.makedirs('output/' + part + '/' + owner)
     series.to_csv("output/" + part + "/" + owner + "/" + "%s.csv" % repository)
@@ -210,7 +210,7 @@ def export_csv(series, part, owner, repository):
 
 def export_pickle(df, part, owner, repository):
     """将数据保存到 pickle 中"""
-    click.echo("导出 output/" + part + "/" + owner + "/" + "%s.pkl" % repository)
+    #click.echo("导出 output/" + part + "/" + owner + "/" + "%s.pkl" % repository)
     if not os.path.exists('output/' + part + '/' + owner):
         os.makedirs('output/' + part + '/' + owner)
     df.to_pickle("output/" + part + "/" + owner + "/" + "%s.pkl" % repository)
@@ -287,7 +287,7 @@ def generate_owner_fig(owner, config):
 
 def generate_top_fig(config):
     """生成平均值的折线图"""
-    click.echo("生成 TOP 图表")
+    #click.echo("生成 TOP 图表")
     start_time = config['time']['start_time']
     end_time = config['time']['end_time']
     top_number = int(config['rank']['top'])
@@ -318,7 +318,7 @@ def generate_top_fig(config):
     plt.close(social_fig)
 
 def generate_repository_fig(owner, repository, config):
-    click.echo("生成 %s/%s 图表" % (owner,repository))
+    #click.echo("生成 %s/%s 图表" % (owner,repository))
     start_time = config['time']['start_time']
     end_time = config['time']['end_time']
     df = pd.read_pickle("output/activity_average.pkl")

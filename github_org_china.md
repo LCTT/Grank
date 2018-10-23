@@ -11,6 +11,7 @@
   - [华为 Hadoop](https://github.com/Huawei-Hadoop)  
 - [腾讯](https://github.com/tencent) 
   - [AlloyTeam](https://github.com/AlloyTeam) 
+  - [TarsCloud](https://github.com/tarscloud)
 - [百度](https://github.com/baidu) 
   - [FEX](https://github.com/fex-team)  
   - [EFE](https://github.com/ecomfe)  
@@ -35,6 +36,22 @@
 - [DNSPod](https://github.com/DNSPod) 
 - [新浪微博](https://github.com/weibocom) 
 - [今日头条](https://github.com/bytedance)
+- [滴滴出行](https://github.com/didi)
+- [eBay](https://github.com/eBay)
 
-（最初参考[来源](https://github.com/jaywcjlove/handbook/blob/master/other/Github-Oraganizations.md)，去除了文档类项目。）
+以及各家捐献给 Apache 基金会的项目：
+
+- [Apache carbondata（Huawei）](https://github.com/apache/carbondata)
+- [Apache eagle（eBay）](https://github.com/apache/eagle)
+- [Apache kylin（eBay）](https://github.com/apache/kylin)
+- [Apache hawq（Pivotal）](https://github.com/apache/hawq)
+- [Apache rocketmq（alibaba）](https://github.com/apache/rocketmq)
+- [incubator-dubbo（alibaba） ](https://github.com/apache/incubator-dubbo)
+- [incubator-weex（alibaba）](https://github.com/apache/incubator-weex)
+- [incubator-doris（baidu）](https://github.com/apache/incubator-doris)
+- [incubator-echarts（baidu）](https://github.com/apache/incubator-echarts)
+- [incubator-griffin（eBay）](https://github.com/apache/incubator-griffin)
+- [incubator-skywalking](https://github.com/apache/incubator-skywalking)
+
+（部分参考[于此](https://github.com/jaywcjlove/handbook/blob/master/other/Github-Oraganizations.md)，去除了文档类项目。）
 
