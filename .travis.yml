@@ -1,17 +1,14 @@
 language: python
 python:
-  - "3.6"
-# command to install dependencies
+- '3.6'
 install:
-  - pip install -r requirements.txt
-# command to run tests
+- pip install -r requirements.txt
 script:
-  - pytest
-
+- pytest
 deploy:
   provider: pypi
   user: bestony
   password:
-    secure: "FRYp3gj5z2v56w44XLV7vVZkK+1laEshN8XgdfRJgtS4W6HWB3T5lHGW2bn0+OWqcTVe9GSJO6r5Sjd9Krf5WgFkmxqJbRjuV1CGN/1fzdAhjyk2lLawVWoOEypEyN45QW84XzAcehaYcPYA0q1vpUBgG+0f7ZcuKFlUrvtuTrXsp6dxcSHDQRr6hTee4pomjOEyq7NbZFGfb+kOselgNqEkTrmn6z4FeDKgXJP2He4CeFtT21rYjvB+woxnUbl6kJN9rQH3qwMpvWV5UNc2MJnZPStmHZs4iiKtV/3QhXlN3DZhRildEirPnM0rsvPOBzTQef1WFux4R9ryT76uBBKOa47czLsfTQE4l/wlmmM9ELDz11+H7ImI38LSiXdgJRgwUuq/JyMhP6BKPm6InRDzEEnryTKyIAtGqTo5lyX+E6uvMfJitIv7F+QUIHaXfzqLdpB1/um3Nat7YGQZh084MYAhcOuHZ7MVm+Enya9kRiJ+ed3qtizOaHWH3Piepn4XaRpWH1CZU81U5Plc90pjL7R358/6QTOV2bymhV//7lyIK5OmkvKxma9lAgOiIWVMJGK4pIkWyrwG8qK5G9SjfMV6on8fHHxHiQpxckW7jwEmIg71tHM1PNnF6eKhQuLsTs2V9neZQhM7Y0WujXcgFjPeR+YDoR1rRcD/33E="
+    secure: mE9kBYNKS3q/Pgph7IyPJG9NxCz1r3DsZ+MZK7CvCY8zK8OV3h3m0flGjgkHEIk1lEXR5+ccsumy/fbbQYR8GtvbyeNnypdTvq7EN2aa3o3O85rw2+6YN5HIODUjLVDDFY3Jxk87yNhZHxayBPVXDaNw0GyydkSnkE3wEuUre/i4p22Y01YbkQtDtEZ9iucSJuUiRAFXA5K+UkghW4U1kSdi5Wer4PuvuzUVUmPknJ9BSOLRPHMe3ORUTngzQ2DYHdbTO8NbDn7SD9GL0LKCSPAxY67e+sW1zs2chxjBAqrGyxw8zq+Q/TGwOM/hG+N11e64D4PwAFtpn78+HULR9En40PLSkW9l90AIEoHlsiRzCvURZThvTA4m4fn1vhbhT+kr3sI53yOtZ8T+kFrVR5X4ZBb0yz+58JyfJcKhChR6aw62qQodJzWu+OkqquSwo3PbFuIt6mjiRIhmI1MO+zHX3SMxp2ufmFsT2TuuOvmwl1IhRnOseXmZkOzISz8HS0VqfcvU5VwxeqHQX+eE+hhmA9MgM0c4SGys9sP5sKVfxO+x4iq+K5uNaJ1a7c2sAj3eH9K+sY+pw06zh14vJytQgNg7jETBNiuQGjoFUvU11FZY5q0qFnoM4aEsTJxnBuYyfJcGMZBdkaRKzGMUimkF/KL9/BWc4Zp/30HfJYI=
   on:
     tags: true
