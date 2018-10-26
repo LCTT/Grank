@@ -57,8 +57,11 @@ def checklogin():
     pass
 
 @main.command()
+@click.option('--all','mode',flag_value='all',default=True)
+@click.option('--activity','mode',flag_value='activity')
+@click.option('--social','mode',flag_value='social')
 @click.argument('args', nargs=-1)
-def analy(args):
+def analy(args,mode):
     """Analyse a Github User or Organization"""
     global config
     if config is None:
@@ -105,9 +108,15 @@ def analy(args):
         click.echo('分析 %s/%s' % (owner, repo))
         click.echo('================================')
         data = crawler.fetch_repo_data(owner, repo, config)
-        activity.analyse_repo(owner, repo, data, config)
-        social.analyse_email(data,config)
-        social.analyse_repo(owner, repo, data, config)
+        if mode == 'all':
+            activity.analyse_repo(owner, repo, data, config)
+            social.analyse_email(data,config)
+            social.analyse_repo(owner, repo, data, config)
+        elif mode == 'activity':
+            activity.analyse_repo(owner, repo, data, config)
+        elif mode == 'social':
+            social.analyse_email(data,config)
+            social.analyse_repo(owner, repo, data, config)
         helpers.generate_repository_fig(owner, repo, config)
         
     helpers.generate_top_fig(config)
