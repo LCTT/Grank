@@ -7,3 +7,11 @@ install:
 # command to run tests
 script:
   - pytest
+
+deploy:
+  provider: pypi
+  user: bestony
+  password:
+    secure: "FRYp3gj5z2v56w44XLV7vVZkK+1laEshN8XgdfRJgtS4W6HWB3T5lHGW2bn0+OWqcTVe9GSJO6r5Sjd9Krf5WgFkmxqJbRjuV1CGN/1fzdAhjyk2lLawVWoOEypEyN45QW84XzAcehaYcPYA0q1vpUBgG+0f7ZcuKFlUrvtuTrXsp6dxcSHDQRr6hTee4pomjOEyq7NbZFGfb+kOselgNqEkTrmn6z4FeDKgXJP2He4CeFtT21rYjvB+woxnUbl6kJN9rQH3qwMpvWV5UNc2MJnZPStmHZs4iiKtV/3QhXlN3DZhRildEirPnM0rsvPOBzTQef1WFux4R9ryT76uBBKOa47czLsfTQE4l/wlmmM9ELDz11+H7ImI38LSiXdgJRgwUuq/JyMhP6BKPm6InRDzEEnryTKyIAtGqTo5lyX+E6uvMfJitIv7F+QUIHaXfzqLdpB1/um3Nat7YGQZh084MYAhcOuHZ7MVm+Enya9kRiJ+ed3qtizOaHWH3Piepn4XaRpWH1CZU81U5Plc90pjL7R358/6QTOV2bymhV//7lyIK5OmkvKxma9lAgOiIWVMJGK4pIkWyrwG8qK5G9SjfMV6on8fHHxHiQpxckW7jwEmIg71tHM1PNnF6eKhQuLsTs2V9neZQhM7Y0WujXcgFjPeR+YDoR1rRcD/33E="
+  on:
+    tags: true
