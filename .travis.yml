@@ -5,8 +5,10 @@ install:
 - pip install -r requirements.txt
 script:
 - pytest
+cache:pip
 deploy:
   provider: pypi
+  distributions: "sdist bdist_wheel"
   user: bestony
   password:
     secure: mE9kBYNKS3q/Pgph7IyPJG9NxCz1r3DsZ+MZK7CvCY8zK8OV3h3m0flGjgkHEIk1lEXR5+ccsumy/fbbQYR8GtvbyeNnypdTvq7EN2aa3o3O85rw2+6YN5HIODUjLVDDFY3Jxk87yNhZHxayBPVXDaNw0GyydkSnkE3wEuUre/i4p22Y01YbkQtDtEZ9iucSJuUiRAFXA5K+UkghW4U1kSdi5Wer4PuvuzUVUmPknJ9BSOLRPHMe3ORUTngzQ2DYHdbTO8NbDn7SD9GL0LKCSPAxY67e+sW1zs2chxjBAqrGyxw8zq+Q/TGwOM/hG+N11e64D4PwAFtpn78+HULR9En40PLSkW9l90AIEoHlsiRzCvURZThvTA4m4fn1vhbhT+kr3sI53yOtZ8T+kFrVR5X4ZBb0yz+58JyfJcKhChR6aw62qQodJzWu+OkqquSwo3PbFuIt6mjiRIhmI1MO+zHX3SMxp2ufmFsT2TuuOvmwl1IhRnOseXmZkOzISz8HS0VqfcvU5VwxeqHQX+eE+hhmA9MgM0c4SGys9sP5sKVfxO+x4iq+K5uNaJ1a7c2sAj3eH9K+sY+pw06zh14vJytQgNg7jETBNiuQGjoFUvU11FZY5q0qFnoM4aEsTJxnBuYyfJcGMZBdkaRKzGMUimkF/KL9/BWc4Zp/30HfJYI=
