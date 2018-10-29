@@ -376,9 +376,6 @@ def clean_directory():
         if confirm in ['yes','y','Yes','Y'] :
             for file in delete:
                 os.remove(file)
-            for dir in dirs:
-                if not os.listdir(dir):
-                    os.rmdir(dir)
             click.echo("done!")
     pass
 
