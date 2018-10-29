@@ -74,12 +74,14 @@ def analy(args,mode):
         click.echo('================================')
         click.echo('分析 ' + owner)
         click.echo('================================')
-        
+
         if helpers.get_user_type(owner) is True:
             repository_array = crawler.fetch_user_data(owner, config)
         else:
             repository_array = crawler.fetch_organ_data(owner, config)
         click.echo('共计 %d 个项目' % len(repository_array["repositoryArray"]))
+        if len(repository_array["repositoryArray"]) == 0:
+            return ;
         i = 0
         for item in repository_array["repositoryArray"]:
             i += 1
@@ -89,12 +91,12 @@ def analy(args,mode):
             if os.path.exists('output/activity/' + item["owner"] + '/' + item["repository"] + ".csv"):
                 click.echo('跳过')
                 continue
-                
+
             data = crawler.fetch_repo_data(item["owner"], item["repository"], config)
             activity.analyse_repo(item["owner"], item["repository"], data, config)
             social.analyse_email(data,config)
             social.analyse_repo(item["owner"], item["repository"], data, config)
-            
+
             # 生成折线图
             helpers.generate_repository_fig(item['owner'], item['repository'], config)
 
@@ -118,7 +120,7 @@ def analy(args,mode):
             social.analyse_email(data,config)
             social.analyse_repo(owner, repo, data, config)
         helpers.generate_repository_fig(owner, repo, config)
-        
+
     helpers.generate_top_fig(config)
     pass
 
