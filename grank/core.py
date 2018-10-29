@@ -91,7 +91,9 @@ def analy(args,mode):
             if os.path.exists('output/activity/' + item["owner"] + '/' + item["repository"] + ".csv"):
                 click.echo('跳过')
                 continue
-
+            if item["repository"] == "":
+                click.echo('reporitory name 为空，跳过')
+                continue
             data = crawler.fetch_repo_data(item["owner"], item["repository"], config)
             activity.analyse_repo(item["owner"], item["repository"], data, config)
             social.analyse_email(data,config)
