@@ -1,5 +1,10 @@
 # 变更日志
 
+## 1.0.4
+
+1. core.py 中遍历 repository 时加入对 repository_name 的判断。
+2. 取消 clean 命令对空文件夹删除的代码。
+
 ## 1.0.3
 
 1. 修复 User 可分析 Repo 为 0 时的导致的报错 by @bestony
