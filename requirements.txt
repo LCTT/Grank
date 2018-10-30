@@ -2,7 +2,7 @@ apipkg==1.5
 atomicwrites==1.2.1
 attrs==18.2.0
 bleach==3.0.2
-certifi==2018.8.24
+certifi==2018.10.15
 cffi==1.11.5
 chardet==3.0.4
 Click==7.0
