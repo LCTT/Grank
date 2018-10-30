@@ -35,7 +35,7 @@ pytest-pep8==1.0.6
 python-dateutil==2.7.3
 pytz==2018.5
 readme-renderer==22.0
-requests==2.19.1
+requests==2.20.0
 requests-toolbelt==0.8.0
 six==1.11.0
 tqdm==4.26.0
