@@ -38,6 +38,9 @@
 - [今日头条](https://github.com/bytedance)
 - [滴滴出行](https://github.com/didi)
 - [eBay](https://github.com/eBay)
+- [PingCAP](https://github.com/pingcap)
+  - [TiDB](https://github.com/pingcap/tidb)
+  - [TiKV](https://github.com/tikv/tikv)
 
 以及各家捐献给 Apache 基金会的项目：
 
