@@ -13,6 +13,6 @@ deploy:
   distributions: "sdist bdist_wheel"
   password: $PASSWD
   provider: pypi
-  true: 
+  on: 
     tags: true
   user: bestony
