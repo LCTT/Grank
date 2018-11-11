@@ -4,8 +4,7 @@ import numpy as np
 import click
 import math
 
-
-def analyse_repo(owner, repository, data, config):
+def analyse_repo(owner, repository, data, config, ret_score = False):
     click.echo("开始活跃度分析：%s/%s" % (owner, repository))
     """查询 Repo 数据"""
     pullRequestArray = data["pullRequestArray"]
@@ -75,6 +74,9 @@ def analyse_repo(owner, repository, data, config):
 
     # 求活跃分数平均值
     target_score = new_df["score"].sum() / len(new_df)
+    
+    if ret_score is True:
+        return target_score
 
     # 获取平均分实例，用于后续排序
     instance = helpers.get_activity_average_instance()
