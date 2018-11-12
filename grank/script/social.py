@@ -32,7 +32,7 @@ def analyse_email(data,config):
     
     pass
 
-def analyse_repo(owner, repository, data, config):
+def analyse_repo(owner, repository, data, config, ret_score = False):
     click.echo("开始社区化分析：%s/%s" % (owner, repository))
     pullRequestArray = data["pullRequestArray"]
     commitArray = data["commitArray"]
@@ -83,6 +83,9 @@ def analyse_repo(owner, repository, data, config):
         lambda row: row.community_member / row.all_member, axis=1)
 
     target_social_score = social_df["score"].mean()
+
+    if ret_score is True:
+        return target_social_score
 
     instance = helpers.get_social_average_instance()
 
