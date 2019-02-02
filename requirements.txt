@@ -15,7 +15,7 @@ future==0.17.1
 idna==2.7
 kiwisolver==1.0.1
 matplotlib==3.0.2
-more-itertools==4.3.0
+more-itertools==5.0.0
 numpy==1.16.1
 pandas==0.23.4
 pep8==1.7.1
