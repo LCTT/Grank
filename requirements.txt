@@ -12,7 +12,7 @@ cycler==0.10.0
 docutils==0.14
 execnet==1.5.0
 future==0.17.1
-idna==2.7
+idna==2.8
 kiwisolver==1.0.1
 matplotlib==3.0.2
 more-itertools==4.3.0
