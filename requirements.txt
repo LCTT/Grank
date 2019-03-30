@@ -28,7 +28,7 @@ Pygments==2.3.1
 pyparsing==2.3.0
 pytest==4.3.1
 pytest-cache==1.0
-pytest-cov==2.6.0
+pytest-cov==2.6.1
 pytest-flakes==4.0.0
 pytest-mock==1.10.0
 pytest-pep8==1.0.6
