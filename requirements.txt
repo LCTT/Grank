@@ -7,7 +7,7 @@ cffi==1.12.3
 chardet==3.0.4
 Click==7.0
 cmarkgfm==0.4.2
-coverage==4.5.2
+coverage==4.5.4
 cycler==0.10.0
 docutils==0.14
 execnet==1.6.0
