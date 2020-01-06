@@ -30,7 +30,7 @@
         "pageNumbers": false,
         "paperSize": "a4"
     },
-    "plugins": [],
+    "plugins": ["-lunr"],
     "title": "Grank 2019 年度分析报告",
     "variables": {}
 }
