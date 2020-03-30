@@ -25,7 +25,7 @@ py==1.7.0
 pycparser==2.19
 pyflakes==2.1.1
 Pygments==2.4.1
-pyparsing==2.3.0
+pyparsing==2.4.6
 pytest==4.5.0
 pytest-cache==1.0
 pytest-cov==2.7.1
