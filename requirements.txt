@@ -33,7 +33,7 @@ pytest-flakes==4.0.0
 pytest-mock==1.10.4
 pytest-pep8==1.0.6
 python-dateutil==2.7.5
-pytz==2018.5
+pytz==2019.3
 readme-renderer==24.0
 requests==2.22.0
 requests-toolbelt==0.9.1
