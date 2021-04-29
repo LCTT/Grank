@@ -1,0 +1,30 @@
+version: 2
+updates:
+- package-ecosystem: pip
+  directory: "/"
+  schedule:
+    interval: weekly
+    time: "21:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: matplotlib
+    versions:
+    - 3.3.3
+    - 3.3.4
+    - 3.4.0
+  - dependency-name: pygments
+    versions:
+    - 2.7.4
+    - 2.8.0
+  - dependency-name: pytest
+    versions:
+    - 6.2.2
+  - dependency-name: pytz
+    versions:
+    - "2020.5"
+  - dependency-name: cffi
+    versions:
+    - 1.14.4
+  - dependency-name: more-itertools
+    versions:
+    - 8.6.0
